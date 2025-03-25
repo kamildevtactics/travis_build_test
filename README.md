@@ -1,13 +1,32 @@
-## 🛠️ **Manual for Comparing Installed Packages Between `stable` and `dev` Environments**
+## **Manual for Comparing Installed Packages Between `stable` and `dev` Environments using Travis CI**
 
-This script automates the process of comparing installed packages between two different environments (`stable` and `dev`) using Travis CI. It generates a detailed report highlighting the differences in installed packages between the two environments.
+This manual explains how to set up and run a Travis CI pipeline to compare installed packages between two different environments (`stable` and `dev`). The script generates a detailed report highlighting the differences and commits the results to a GitHub repository.
+
+---
+
+## **How It Works**
+1. The script runs on two Travis CI jobs:
+   - `stable_bionic` – Represents the stable environment.
+   - `dev_bionic` – Represents the development environment.
+
+2. The script:
+   - Detects the Linux distribution using `lsb_release`.
+   - Captures the list of installed packages using `apt list --installed`.
+   - Saves the list to a file named according to the `TARGET_ENV`.
+
+3. If `TARGET_ENV` contains `stable`:
+   - The script automatically determines the corresponding `dev` file.
+   - Compares the installed packages:
+     - Packages present in `dev` but missing in `stable` are marked with `+`.
+     - Packages present in `stable` but missing in `dev` are marked with `-`.
+   - Saves the comparison results in a `diff_report.txt`.
+   - Pushes the results to the GitHub repository.
 
 ---
 
 ## **Folder Structure**
-The comparison results and package lists will be stored under a folder named according to the system's codename (e.g., `bionic`).
+The output files are stored in a directory based on the distribution codename (e.g., `bionic`):
 
-Example structure:
 ```
 .
 ├── bionic
@@ -18,46 +37,112 @@ Example structure:
 
 ---
 
-## **How It Works**
-### 1. **Script Execution**  
-The script:
-1. Detects the Linux distribution using `lsb_release`.
-2. Captures the list of installed packages using `apt list --installed`.
-3. Saves the list to a file named based on the `TARGET_ENV` value.
+## **Setup Instructions**
+### 1. **Add `GITHUB_TOKEN` to Travis CI**  
+To allow Travis CI to push changes to your repository, you need to add a GitHub token.
 
-### 2. **Comparison Logic**  
-- If `TARGET_ENV` contains the word `stable`, the script:
-   - Dynamically generates the corresponding `dev` file name (by replacing `stable` with `dev`).
-   - Checks if the `dev` file exists.
-   - Compares the installed packages using the `diff` command:
-     - Packages present in `dev` but missing in `stable` are marked with `+`.
-     - Packages present in `stable` but missing in `dev` are marked with `-`.
-   - Saves the comparison results in a file named:
-     ```
-     stable_bionic_vs_dev_bionic_diff.txt
-     ```
+#### **Step-by-Step Guide to Generate `GITHUB_TOKEN`:**
+1. Go to GitHub:  
+   ➔ **Settings** → **Developer settings** → **Personal access tokens** → **Generate new token**  
+2. Set the following scopes:
+   - `repo` – Full control of private repositories
+   - `workflow` – Update GitHub Actions and Workflows
+3. Generate the token and copy it.
 
-### 3. **Saving Results to GitHub**
-- The script:
-  - Adds the generated files to the repository.
-  - Commits the changes with a meaningful commit message.
-  - Pushes the changes to the `main` branch.
+#### **Add `GITHUB_TOKEN` to Travis CI:**
+1. Go to Travis CI:  
+   ➔ Open your repository settings in Travis CI.
+2. Add the token as an environment variable:
+   - Name: `GITHUB_TOKEN`
+   - Value: `<your-generated-token>`
+   - Ensure the "Display value in build log" option is **off** for security.
 
 ---
 
-## **Configuration**
-### **Environment Variables**
-| Variable | Description | Example |
-|----------|-------------|---------|
-| `TARGET_ENV` | Environment type | `stable_bionic`, `dev_bionic` |
-| `GITHUB_TOKEN` | GitHub token for pushing changes | `ghp_xxx` |
-| `distro` | Linux distribution codename | `bionic` |
+### 2. **Add `.travis.yml` to Repository**
+Create a `.travis.yml` file at the root of your repository:
+
+```yaml
+jobs:
+  include:
+    - dist: bionic
+      env:
+        - TARGET_ENV=stable_bionic
+    - dist: bionic
+      group: dev
+      env:
+        - TARGET_ENV=dev_bionic
+
+script:
+  - distro=$(lsb_release -c -s)
+  - mkdir -p $distro
+  - apt list --installed > $distro/${TARGET_ENV}_installed_packages.txt
+
+after_success:
+  # Set up Git configuration
+  - git config --global user.name "<your-github-username>"
+  - git config --global user.email "<your-github-email>"
+  
+  - git clone https://<your-github-username>:$GITHUB_TOKEN@github.com/<your-github-username>/<your-repo>.git
+  - cd <your-repo>
+  - mkdir -p $distro
+  - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
+  - git add $distro/${TARGET_ENV}_installed_packages.txt
+  - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
+  - git push origin main
+
+  - if [[ "$TARGET_ENV" == *"stable"* ]]; then
+      echo "Comparing stable and dev installed packages...";
+      DEV_ENV="${TARGET_ENV/stable/dev}";
+      echo "Comparing $TARGET_ENV with $DEV_ENV";
+      if [[ -f "$distro/${DEV_ENV}_installed_packages.txt" ]]; then
+        echo "Found $DEV_ENV installed package list, generating diff report...";
+        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt";
+        
+        echo "=== Packages present in $DEV_ENV but missing in $TARGET_ENV ===" > $DIFF_REPORT;
+        diff --new-line-format="+ %L" --old-line-format="" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
+        echo "=== Packages present in $TARGET_ENV but missing in $DEV_ENV ===" >> $DIFF_REPORT;
+        diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
+        echo "Comparison complete. Saving report to $DIFF_REPORT";
+        cat $DIFF_REPORT;
+        git add $DIFF_REPORT;
+        git commit -m "Add diff report for $TARGET_ENV vs $DEV_ENV";
+        git push origin main;
+      else
+        echo "$DEV_ENV installed package list not found. Skipping comparison.";
+      fi
+    fi
+```
 
 ---
 
-## **Example Output**
-Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
+### 3. **Push Changes to GitHub**
+Push the changes to GitHub:
+```bash
+git add .travis.yml
+git commit -m "Add Travis CI pipeline for package comparison"
+git push origin main
+```
 
+---
+
+### 4. **Enable Travis CI on Your Repository**
+- Go to **https://travis-ci.com**.
+- Add your repository.
+- Trigger the build.
+
+---
+
+## **How the Comparison Works**
+1. If `TARGET_ENV="stable_bionic"`, the script:
+   - Looks for `dev_bionic_installed_packages.txt`.
+   - Runs a `diff` command:
+     - `+` → Present in `dev` but missing in `stable`.
+     - `-` → Present in `stable` but missing in `dev`.
+
+2. Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 ```
 === Packages present in dev_bionic but missing in stable_bionic ===
 + package1
@@ -67,18 +152,6 @@ Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 - package3
 - package4
 ```
-
----
-
-## **Usage**
-1. Add the environment variable `TARGET_ENV`:
-   - `stable_bionic` – for stable environment
-   - `dev_bionic` – for development environment
-2. Run the script in Travis CI.
-3. If `TARGET_ENV` contains `stable`, the script will:
-   - Compare `dev` and `stable` package lists.
-   - Generate a diff report.
-   - Push the results to the repository.
 
 ---
 
@@ -98,15 +171,22 @@ Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 
 ---
 
-## **Example Travis CI Configuration**
-Example `.travis.yml`:
-```yaml
-jobs:
-  include:
-    - dist: bionic
-      env:
-        - TARGET_ENV=stable_bionic
-    - dist: bionic
-      env:
-        - TARGET_ENV=dev_bionic
+## **Example Output**
+Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 ```
+=== Packages present in dev_bionic but missing in stable_bionic ===
++ package1
++ package2
+
+=== Packages present in stable_bionic but missing in dev_bionic ===
+- package3
+- package4
+```
+
+---
+
+## **Summary**
+1. The script captures installed packages for `stable` and `dev` environments.
+2. If `TARGET_ENV` is `stable`, the script compares installed packages and generates a diff report.
+3. The results are committed and pushed to the repository.
+4. Differences between the environments are recorded for further analysis.
