@@ -14,10 +14,12 @@ script:
   - apt list --installed > $distro/${TARGET_ENV}_installed_packages.txt
 
 after_success:
-  - git config --global user.name "kamildevtactics"
-  - git config --global user.email "kamil.maludzinski@devtactics.net"
-  - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
-  - cd travis_build_test
+  # Set up Git configuration
+  - git config --global user.name "<your-github-username>"
+  - git config --global user.email "<your-github-email>"
+  
+  - git clone https://<your-github-username>:$GITHUB_TOKEN@github.com/<your-github-username>/<your-repo>.git
+  - cd <your-repo>
   - mkdir -p $distro
   - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
   - git add $distro/${TARGET_ENV}_installed_packages.txt
