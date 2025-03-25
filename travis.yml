@@ -40,6 +40,18 @@ after_success:
         echo "=== Packages present in $TARGET_ENV but missing in $DEV_ENV ===" >> $DIFF_REPORT;
         diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
 
+        echo "=== Packages with different versions between $TARGET_ENV and $DEV_ENV ===" >> $DIFF_REPORT;
+        
+        awk -F'/' '
+          NR==FNR { a[$1]=$2; next }
+          $1 in a && $2 != a[$1] { print $1 " - " a[$1] " -> " $2 }
+        ' $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
+        awk -F'/' '
+          NR==FNR { a[$1]=$2; next }
+          $1 in a && $2 != a[$1] { print $1 " - " $2 " -> " a[$1] }
+        ' $distro/${TARGET_ENV}_installed_packages.txt $distro/${DEV_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
         echo "Comparison complete. Saving report to $DIFF_REPORT";
         cat $DIFF_REPORT;
         git add $DIFF_REPORT;
