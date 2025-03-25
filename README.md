@@ -4,7 +4,7 @@ This script automates the process of comparing installed packages between two di
 
 ---
 
-## 📁 **Folder Structure**
+## **Folder Structure**
 The comparison results and package lists will be stored under a folder named according to the system's codename (e.g., `bionic`).
 
 Example structure:
@@ -18,7 +18,7 @@ Example structure:
 
 ---
 
-## 🚀 **How It Works**
+## **How It Works**
 ### 1. **Script Execution**  
 The script:
 1. Detects the Linux distribution using `lsb_release`.
@@ -45,8 +45,8 @@ The script:
 
 ---
 
-## ⚙️ **Configuration**
-### 🔹 **Environment Variables**
+## **Configuration**
+### **Environment Variables**
 | Variable | Description | Example |
 |----------|-------------|---------|
 | `TARGET_ENV` | Environment type | `stable_bionic`, `dev_bionic` |
@@ -55,7 +55,7 @@ The script:
 
 ---
 
-## 🏆 **Example Output**
+## **Example Output**
 Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 
 ```
@@ -70,7 +70,7 @@ Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 
 ---
 
-## ✅ **Usage**
+## **Usage**
 1. Add the environment variable `TARGET_ENV`:
    - `stable_bionic` – for stable environment
    - `dev_bionic` – for development environment
@@ -82,7 +82,7 @@ Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 
 ---
 
-## 🚨 **Troubleshooting**
+## **Troubleshooting**
 | Issue | Cause | Solution |
 |-------|-------|----------|
 | `dev_bionic_installed_packages.txt not found` | The `dev` package list is missing | Ensure the dev environment has already run the script |
@@ -91,14 +91,14 @@ Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 
 ---
 
-## 🎯 **Best Practices**
-✅ Run the script in both environments (`dev` and `stable`) before comparing.  
-✅ Use a secure GitHub token with appropriate permissions.  
-✅ Review the generated diff report before deploying changes.  
+## **Best Practices**
+- Run the script in both environments (`dev` and `stable`) before comparing.  
+- Use a secure GitHub token with appropriate permissions.  
+- Review the generated diff report before deploying changes.  
 
 ---
 
-## 🌟 **Example Travis CI Configuration**
+## **Example Travis CI Configuration**
 Example `.travis.yml`:
 ```yaml
 jobs:
@@ -113,4 +113,4 @@ jobs:
 
 ---
 
-## 🚀 **Now you’re ready to keep your environments in sync!** 🔥
+Now you’re ready to keep your environments in sync.
