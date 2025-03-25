@@ -110,7 +110,3 @@ jobs:
       env:
         - TARGET_ENV=dev_bionic
 ```
-
----
-
-Now you’re ready to keep your environments in sync.
