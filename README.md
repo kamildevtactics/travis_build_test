@@ -1,6 +1,6 @@
-## **Manual for Comparing Installed Packages Between `stable` and `dev` Environments using Travis CI**
+## **Manual for Comparing Installed Packages and Versions Between `stable` and `dev` Environments using Travis CI**
 
-This manual explains how to set up and run a Travis CI pipeline to compare installed packages between two different environments (`stable` and `dev`). The script generates a detailed report highlighting the differences and commits the results to a GitHub repository.
+This manual explains how to set up and run a Travis CI pipeline to compare installed packages and their **versions** between two different environments (`stable` and `dev`). The script generates a detailed report highlighting both the **presence** and **version differences** of packages, then commits the results to a GitHub repository.
 
 ---
 
@@ -11,7 +11,7 @@ This manual explains how to set up and run a Travis CI pipeline to compare insta
 
 2. The script:
    - Detects the Linux distribution using `lsb_release`.
-   - Captures the list of installed packages using `apt list --installed`.
+   - Captures the list of installed packages and their versions using `apt list --installed`.
    - Saves the list to a file named according to the `TARGET_ENV`.
 
 3. If `TARGET_ENV` contains `stable`:
@@ -19,6 +19,7 @@ This manual explains how to set up and run a Travis CI pipeline to compare insta
    - Compares the installed packages:
      - Packages present in `dev` but missing in `stable` are marked with `+`.
      - Packages present in `stable` but missing in `dev` are marked with `-`.
+     - **Version differences** between `stable` and `dev` are detected and reported **in both directions**.
    - Saves the comparison results in a `diff_report.txt`.
    - Pushes the results to the GitHub repository.
 
@@ -105,6 +106,18 @@ after_success:
         echo "=== Packages present in $TARGET_ENV but missing in $DEV_ENV ===" >> $DIFF_REPORT;
         diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
 
+        echo "=== Packages with different versions between $TARGET_ENV and $DEV_ENV ===" >> $DIFF_REPORT;
+        
+        awk -F'/' '
+          NR==FNR { a[$1]=$2; next }
+          $1 in a && $2 != a[$1] { print $1 " - " a[$1] " -> " $2 }
+        ' $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
+        awk -F'/' '
+          NR==FNR { a[$1]=$2; next }
+          $1 in a && $2 != a[$1] { print $1 " - " $2 " -> " a[$1] }
+        ' $distro/${TARGET_ENV}_installed_packages.txt $distro/${DEV_ENV}_installed_packages.txt >> $DIFF_REPORT;
+
         echo "Comparison complete. Saving report to $DIFF_REPORT";
         cat $DIFF_REPORT;
         git add $DIFF_REPORT;
@@ -141,6 +154,9 @@ git push origin main
    - Runs a `diff` command:
      - `+` → Present in `dev` but missing in `stable`.
      - `-` → Present in `stable` but missing in `dev`.
+   - Uses `awk` to compare version differences:
+     - `stable -> dev`
+     - `dev -> stable`
 
 2. Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
 ```
@@ -151,6 +167,10 @@ git push origin main
 === Packages present in stable_bionic but missing in dev_bionic ===
 - package3
 - package4
+
+=== Packages with different versions between stable_bionic and dev_bionic ===
+package5 - 1.2.3 -> 1.2.4
+package6 - 1.2.4 -> 1.2.3
 ```
 
 ---
@@ -164,29 +184,9 @@ git push origin main
 
 ---
 
-## **Best Practices**
-- Run the script in both environments (`dev` and `stable`) before comparing.  
-- Use a secure GitHub token with appropriate permissions.  
-- Review the generated diff report before deploying changes.  
+## ✅ **Summary**
+✔️ The script compares installed packages and versions in both directions.  
+✔️ Results are committed and pushed to the repository.  
+✔️ The output provides a clear overview of differences and version mismatches.  
 
 ---
-
-## **Example Output**
-Example output in `stable_bionic_vs_dev_bionic_diff.txt`:
-```
-=== Packages present in dev_bionic but missing in stable_bionic ===
-+ package1
-+ package2
-
-=== Packages present in stable_bionic but missing in dev_bionic ===
-- package3
-- package4
-```
-
----
-
-## **Summary**
-1. The script captures installed packages for `stable` and `dev` environments.
-2. If `TARGET_ENV` is `stable`, the script compares installed packages and generates a diff report.
-3. The results are committed and pushed to the repository.
-4. Differences between the environments are recorded for further analysis.
