@@ -2,3 +2,5 @@
 + google-chrome-stable/now 134.0.6998.35-1 amd64 [installed,local]
 === Packages present in stable_bionic but missing in dev_bionic ===
 - google-chrome-stable/now 134.0.6998.88-1 amd64 [installed,local]
+=== Packages with different versions between stable_bionic and dev_bionic ===
+google-chrome-stable - now 134.0.6998.88-1 amd64 [installed,local] -> now 134.0.6998.35-1 amd64 [installed,local]
