@@ -25,7 +25,7 @@ after_success:
   - git config --global user.name "$GH_USERNAME"
   - git config --global user.email "$GH_EMAIL"
   
-  - git clone https://${GH_USERNAME}:$GITHUB_TOKEN@github.com/${GH_USERNAME}/${GH_REPO}.git
+  - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
   - cd ${GH_REPO}
   - mkdir -p $distro
   - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
