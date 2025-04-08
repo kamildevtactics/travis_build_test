@@ -1,164 +1,184 @@
 ======================================================
     PACKAGE COMPARISON REPORT: stable_noble vs dev_noble
-    Generated on: Tue Apr  8 02:56:42 PM UTC 2025
+    Generated on: Tue Apr  8 02:57:15 PM UTC 2025
 ======================================================
 
 1. PACKAGES ADDED (present in dev_noble but missing in stable_noble)
 --------------------------------------------------------------
    catatonit - version unknown,now
    conmon - version unknown,now
-   containernetworking-plugins - version noble-security,now
-   golang-github-containers-common - version now
-   golang-github-containers-image - version now
-   libgpgme11t64 - version now
-   libsubid4 - version now
-   linux-gcp-tools-6.8.0-1027 - version noble-security,now
-   linux-headers-6.8.0-57 - version noble-security,noble-security,now
-   linux-headers-6.8.0-57-generic - version noble-security,now
-   linux-image-6.8.0-1027-gcp - version noble-security,now
-   linux-image-6.8.0-57-generic - version noble-security,now
-   linux-modules-6.8.0-1027-gcp - version noble-security,now
-   linux-modules-6.8.0-57-generic - version noble-security,now
-   linux-modules-extra-6.8.0-57-generic - version noble-security,now
-   linux-tools-6.8.0-1027-gcp - version noble-security,now
-   podman - version now
-   uidmap - version now
+   containernetworking-plugins - version noble-updates,noble-security,now
+   golang-github-containers-common - version noble-updates,noble-updates,now
+   golang-github-containers-image - version noble,noble,now
+   libgpgme11t64 - version noble,now
+   libsubid4 - version noble-updates,now
+   linux-gcp-tools-6.8.0-1027 - version noble-updates,noble-security,now
+   linux-headers-6.8.0-57 - version noble-updates,noble-updates,noble-security,noble-security,now
+   linux-headers-6.8.0-57-generic - version noble-updates,noble-security,now
+   linux-image-6.8.0-1027-gcp - version noble-updates,noble-security,now
+   linux-image-6.8.0-57-generic - version noble-updates,noble-security,now
+   linux-modules-6.8.0-1027-gcp - version noble-updates,noble-security,now
+   linux-modules-6.8.0-57-generic - version noble-updates,noble-security,now
+   linux-modules-extra-6.8.0-57-generic - version noble-updates,noble-security,now
+   linux-tools-6.8.0-1027-gcp - version noble-updates,noble-security,now
+   podman - version noble-updates,now
+   uidmap - version noble-updates,now
 
 2. PACKAGES REMOVED (present in stable_noble but missing in dev_noble)
 --------------------------------------------------------------
-   linux-gcp-tools-6.8.0-1024 - version noble-security,now
-   linux-headers-6.8.0-55 - version noble-security,noble-security,now
-   linux-headers-6.8.0-55-generic - version noble-security,now
-   linux-image-6.8.0-1024-gcp - version noble-security,now
-   linux-image-6.8.0-55-generic - version noble-security,now
-   linux-modules-6.8.0-1024-gcp - version noble-security,now
-   linux-modules-6.8.0-55-generic - version noble-security,now
-   linux-modules-extra-6.8.0-55-generic - version noble-security,now
-   linux-tools-6.8.0-1024-gcp - version noble-security,now
+   linux-gcp-tools-6.8.0-1024 - version noble-updates,noble-security,now
+   linux-headers-6.8.0-55 - version noble-updates,noble-updates,noble-security,noble-security,now
+   linux-headers-6.8.0-55-generic - version noble-updates,noble-security,now
+   linux-image-6.8.0-1024-gcp - version noble-updates,noble-security,now
+   linux-image-6.8.0-55-generic - version noble-updates,noble-security,now
+   linux-modules-6.8.0-1024-gcp - version noble-updates,noble-security,now
+   linux-modules-6.8.0-55-generic - version noble-updates,noble-security,now
+   linux-modules-extra-6.8.0-55-generic - version noble-updates,noble-security,now
+   linux-tools-6.8.0-1024-gcp - version noble-updates,noble-security,now
 
 3. PACKAGES WITH VERSION CHANGES (stable_noble vs dev_noble)
 --------------------------------------------------------------
    dirmngr
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gnupg
-     stable_noble: now
-     dev_noble:    noble-security,noble-security,now
+     stable_noble: noble,noble,now
+     dev_noble:    noble-updates,noble-updates,noble-security,noble-security,now
 
    gnupg2
-     stable_noble: now
-     dev_noble:    noble-security,noble-security,now
+     stable_noble: noble,noble,now
+     dev_noble:    noble-updates,noble-updates,noble-security,noble-security,now
 
    gnupg-l10n
-     stable_noble: now
-     dev_noble:    noble-security,noble-security,now
+     stable_noble: noble,noble,now
+     dev_noble:    noble-updates,noble-updates,noble-security,noble-security,now
 
    gnupg-utils
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpg
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpg-agent
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpgconf
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpgsm
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpgv
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    gpg-wks-client
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    keyboxd
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    libcap2
-     stable_noble: noble-security,now
+     stable_noble: noble-updates,noble-security,now
      dev_noble:    unknown,now
 
    libcap2-bin
-     stable_noble: noble-security,now
+     stable_noble: noble-updates,noble-security,now
      dev_noble:    unknown,now
 
    libdw1t64
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
    libelf1t64
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
    libelf-dev
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
    liblzma5
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
    liblzma-dev
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
    libpam-cap
-     stable_noble: noble-security,now
+     stable_noble: noble-updates,noble-security,now
      dev_noble:    unknown,now
 
+   libplymouth5
+     stable_noble: noble,now
+     dev_noble:    noble-updates,now
+
    libxslt1.1
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    libxslt1-dev
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble,now
+     dev_noble:    noble-updates,noble-security,now
 
    openssh-client
-     stable_noble: noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-security,now
+     dev_noble:    noble-updates,now
 
    openssh-server
-     stable_noble: noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-security,now
+     dev_noble:    noble-updates,now
 
    openssh-sftp-server
-     stable_noble: noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-security,now
+     dev_noble:    noble-updates,now
+
+   plymouth
+     stable_noble: noble,now
+     dev_noble:    noble-updates,now
+
+   plymouth-theme-ubuntu-text
+     stable_noble: noble,now
+     dev_noble:    noble-updates,now
+
+   rsyslog
+     stable_noble: noble,now
+     dev_noble:    noble-updates,now
+
+   update-notifier-common
+     stable_noble: noble,noble,now
+     dev_noble:    noble-updates,noble-updates,now
 
    xserver-common
-     stable_noble: noble-security,noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-updates,noble-security,noble-security,now
+     dev_noble:    noble-updates,noble-updates,now
 
    xserver-xorg-core
-     stable_noble: noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-security,now
+     dev_noble:    noble-updates,now
 
    xvfb
-     stable_noble: noble-security,now
-     dev_noble:    now
+     stable_noble: noble-updates,noble-security,now
+     dev_noble:    noble-updates,now
 
    xz-utils
-     stable_noble: now
-     dev_noble:    noble-security,now
+     stable_noble: noble-updates,now
+     dev_noble:    noble-updates,noble-security,now
 
 
 4. SUMMARY
 --------------------------------------------------------------
   Total packages added:    18
   Total packages removed:  9
-  Total version changes:   29
-  Total differences:       56
+  Total version changes:   34
+  Total differences:       61
 
