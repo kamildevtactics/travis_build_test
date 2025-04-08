@@ -1,3 +1,11 @@
+env:
+  global:
+    # GitHub configuration
+    - GH_USERNAME=${GH_USERNAME:-"<your-github-username>"}
+    - GH_EMAIL=${GH_EMAIL:-"<your-github-email>"}
+    - GH_REPO=${GH_REPO:-"<your-repo>"}
+    - GIT_BRANCH=${GIT_BRANCH:-"main"}
+
 jobs:
   include:
     - dist: noble
@@ -15,48 +23,57 @@ script:
 
 after_success:
   # Set up Git configuration
-  - git config --global user.name "<your-github-username>"
-  - git config --global user.email "<your-github-email>"
+  - git config --global user.name "$GH_USERNAME"
+  - git config --global user.email "$GH_EMAIL"
   
-  - git clone https://<your-github-username>:$GITHUB_TOKEN@github.com/<your-github-username>/<your-repo>.git
-  - cd <your-repo>
+  - git clone https://${GH_USERNAME}:$GITHUB_TOKEN@github.com/${GH_USERNAME}/${GH_REPO}.git
+  - cd ${GH_REPO}
   - mkdir -p $distro
   - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
-  - git push origin main
-
-  - if [[ "$TARGET_ENV" == *"stable"* ]]; then
+  - git push origin $GIT_BRANCH
+  
+  # Generate diff report if this is a stable environment
+  - |
+    if [[ "$TARGET_ENV" == *"stable"* ]]; then
       echo "Comparing stable and dev installed packages...";
       DEV_ENV="${TARGET_ENV/stable/dev}";
       echo "Comparing $TARGET_ENV with $DEV_ENV";
+      
       if [[ -f "$distro/${DEV_ENV}_installed_packages.txt" ]]; then
         echo "Found $DEV_ENV installed package list, generating diff report...";
         DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt";
         
         echo "=== Packages present in $DEV_ENV but missing in $TARGET_ENV ===" > $DIFF_REPORT;
-        diff --new-line-format="+ %L" --old-line-format="" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
+        diff --new-line-format="+ %L" --old-line-format="" --unchanged-line-format="" \
+          $distro/${DEV_ENV}_installed_packages.txt \
+          $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+        
         echo "=== Packages present in $TARGET_ENV but missing in $DEV_ENV ===" >> $DIFF_REPORT;
-        diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
+        diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" \
+          $distro/${DEV_ENV}_installed_packages.txt \
+          $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+        
         echo "=== Packages with different versions between $TARGET_ENV and $DEV_ENV ===" >> $DIFF_REPORT;
         
         awk -F'/' '
           NR==FNR { a[$1]=$2; next }
           $1 in a && $2 != a[$1] { print $1 " - " a[$1] " -> " $2 }
-        ' $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
+        ' $distro/${DEV_ENV}_installed_packages.txt \
+          $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
+        
         awk -F'/' '
           NR==FNR { a[$1]=$2; next }
           $1 in a && $2 != a[$1] { print $1 " - " $2 " -> " a[$1] }
-        ' $distro/${TARGET_ENV}_installed_packages.txt $distro/${DEV_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
+        ' $distro/${TARGET_ENV}_installed_packages.txt \
+          $distro/${DEV_ENV}_installed_packages.txt >> $DIFF_REPORT;
+        
         echo "Comparison complete. Saving report to $DIFF_REPORT";
         cat $DIFF_REPORT;
         git add $DIFF_REPORT;
         git commit -m "Add diff report for $TARGET_ENV vs $DEV_ENV";
-        git push origin main;
+        git push origin $GIT_BRANCH;
       else
         echo "$DEV_ENV installed package list not found. Skipping comparison.";
       fi
