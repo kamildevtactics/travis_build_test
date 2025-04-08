@@ -17,7 +17,6 @@ after_success:
   # Set up Git configuration
   - git config --global user.name "kamildevtactics"
   - git config --global user.email "kamil.maludzinski@devtactics.net"
-  
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
   - cd travis_build_test
   - mkdir -p $distro
@@ -26,14 +25,15 @@ after_success:
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
   - git push origin main
-
-  - if [[ "$TARGET_ENV" == *"stable"* ]]; then
-      echo "Comparing stable and dev installed packages...";
-      DEV_ENV="${TARGET_ENV/stable/dev}";
-      echo "Comparing $TARGET_ENV with $DEV_ENV";
+  # The comparison script needs to be in a proper YAML multi-line string format
+  - |
+    if [[ "$TARGET_ENV" == *"stable"* ]]; then
+      echo "Comparing stable and dev installed packages..."
+      DEV_ENV="${TARGET_ENV/stable/dev}"
+      echo "Comparing $TARGET_ENV with $DEV_ENV"
       if [[ -f "$distro/${DEV_ENV}_installed_packages.txt" ]]; then
-        echo "Found $DEV_ENV installed package list, generating diff report...";
-        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt";
+        echo "Found $DEV_ENV installed package list, generating diff report..."
+        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt"
         
         # Create a fresh report with a header and timestamp
         echo "======================================================" > $DIFF_REPORT
@@ -140,12 +140,12 @@ after_success:
         rm -f ${TARGET_ENV}_names.txt ${DEV_ENV}_names.txt
         rm -f added_packages.txt removed_packages.txt common_packages.txt
         
-        echo "Comparison complete. Saving report to $DIFF_REPORT";
-        cat $DIFF_REPORT;
-        git add $DIFF_REPORT;
-        git commit -m "Add diff report for $TARGET_ENV vs $DEV_ENV";
-        git push origin main;
+        echo "Comparison complete. Saving report to $DIFF_REPORT"
+        cat $DIFF_REPORT
+        git add $DIFF_REPORT
+        git commit -m "Add diff report for $TARGET_ENV vs $DEV_ENV"
+        git push origin main
       else
-        echo "$DEV_ENV installed package list not found. Skipping comparison.";
+        echo "$DEV_ENV installed package list not found. Skipping comparison."
       fi
     fi
