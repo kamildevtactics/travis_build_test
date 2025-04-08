@@ -42,10 +42,38 @@ after_success:
         echo "======================================================" >> $DIFF_REPORT
         echo "" >> $DIFF_REPORT
         
-        # Process the package lists to extract clean package name and version
-        # This creates temporary files with consistent format: package_name version
-        awk -F'/' '{print $1, $2}' $distro/${TARGET_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${TARGET_ENV}_clean.txt
-        awk -F'/' '{print $1, $2}' $distro/${DEV_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${DEV_ENV}_clean.txt
+        # Process the package lists - extract actual version numbers
+        # Input format: name/version,repo1,repo2,now [arch]
+        # Extract package name and only version number (without repo info)
+        awk -F'/' '{
+          # Get package name
+          name = $1;
+          
+          # Get version and remove repo info
+          if (match($2, /^([^,]+),/)) {
+            version = substr($2, RSTART, RLENGTH-1);
+          } else {
+            version = $2;
+          }
+          
+          # Print package name and clean version
+          print name, version;
+        }' $distro/${TARGET_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${TARGET_ENV}_clean.txt
+        
+        awk -F'/' '{
+          # Get package name
+          name = $1;
+          
+          # Get version and remove repo info
+          if (match($2, /^([^,]+),/)) {
+            version = substr($2, RSTART, RLENGTH-1);
+          } else {
+            version = $2;
+          }
+          
+          # Print package name and clean version
+          print name, version;
+        }' $distro/${DEV_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${DEV_ENV}_clean.txt
         
         # 1. PACKAGES ADDED (in dev but not in stable)
         echo "1. PACKAGES ADDED (present in $DEV_ENV but missing in $TARGET_ENV)" >> $DIFF_REPORT
@@ -64,12 +92,12 @@ after_success:
           # Skip empty lines
           if [ -z "$pkg" ]; then continue; fi
           ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
-          echo "  ➕ $pkg - version $ver" >> $DIFF_REPORT
+          echo "   + $pkg - version $ver" >> $DIFF_REPORT
           ADDED_COUNT=$((ADDED_COUNT+1))
         done < added_packages.txt
         
         if [ $ADDED_COUNT -eq 0 ]; then
-          echo "  None" >> $DIFF_REPORT
+          echo "   None" >> $DIFF_REPORT
         fi
         echo "" >> $DIFF_REPORT
         
@@ -86,12 +114,12 @@ after_success:
           # Skip empty lines
           if [ -z "$pkg" ]; then continue; fi
           ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
-          echo "  ➖ $pkg - version $ver" >> $DIFF_REPORT
+          echo "   - $pkg - version $ver" >> $DIFF_REPORT
           REMOVED_COUNT=$((REMOVED_COUNT+1))
         done < removed_packages.txt
         
         if [ $REMOVED_COUNT -eq 0 ]; then
-          echo "  None" >> $DIFF_REPORT
+          echo "   None" >> $DIFF_REPORT
         fi
         echo "" >> $DIFF_REPORT
         
@@ -113,7 +141,7 @@ after_success:
           dev_ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
           
           if [ "$stable_ver" != "$dev_ver" ]; then
-            echo "  🔄 $pkg" >> $DIFF_REPORT
+            echo "   * $pkg" >> $DIFF_REPORT
             echo "     $TARGET_ENV: $stable_ver" >> $DIFF_REPORT
             echo "     $DEV_ENV:    $dev_ver" >> $DIFF_REPORT
             echo "" >> $DIFF_REPORT
@@ -122,18 +150,34 @@ after_success:
         done < common_packages.txt
         
         if [ $VERSION_COUNT -eq 0 ]; then
-          echo "  None" >> $DIFF_REPORT
+          echo "   None" >> $DIFF_REPORT
         fi
         echo "" >> $DIFF_REPORT
         
         # 4. SUMMARY
         echo "4. SUMMARY" >> $DIFF_REPORT
         echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        echo "  Total packages added:    $ADDED_COUNT" >> $DIFF_REPORT
-        echo "  Total packages removed:  $REMOVED_COUNT" >> $DIFF_REPORT
-        echo "  Total version changes:   $VERSION_COUNT" >> $DIFF_REPORT
-        echo "  Total differences:       $((ADDED_COUNT+REMOVED_COUNT+VERSION_COUNT))" >> $DIFF_REPORT
+        echo "   Total packages added:    $ADDED_COUNT" >> $DIFF_REPORT
+        echo "   Total packages removed:  $REMOVED_COUNT" >> $DIFF_REPORT
+        echo "   Total version changes:   $VERSION_COUNT" >> $DIFF_REPORT
+        echo "   Total differences:       $((ADDED_COUNT+REMOVED_COUNT+VERSION_COUNT))" >> $DIFF_REPORT
         echo "" >> $DIFF_REPORT
+        
+        # 5. KERNEL VERSION CHANGES
+        echo "5. KERNEL VERSION CHANGES" >> $DIFF_REPORT
+        echo "--------------------------------------------------------------" >> $DIFF_REPORT
+        echo "   Kernel packages removed:" >> $DIFF_REPORT
+        grep -E "^linux-(image|headers|modules)" removed_packages.txt | while read pkg; do
+          ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
+          echo "   - $pkg (version $ver)" >> $DIFF_REPORT
+        done
+        
+        echo "" >> $DIFF_REPORT
+        echo "   Kernel packages added:" >> $DIFF_REPORT
+        grep -E "^linux-(image|headers|modules)" added_packages.txt | while read pkg; do
+          ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          echo "   + $pkg (version $ver)" >> $DIFF_REPORT
+        done
         
         # Clean up temp files
         rm -f ${TARGET_ENV}_clean.txt ${DEV_ENV}_clean.txt
