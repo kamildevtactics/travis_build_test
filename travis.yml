@@ -1,12 +1,12 @@
 jobs:
   include:
-    - dist: bionic
+    - dist: noble
       env:
-        - TARGET_ENV=stable_bionic
+        - TARGET_ENV=stable_noble
     - dist: bionic
       group: dev
       env:
-        - TARGET_ENV=dev_bionic
+        - TARGET_ENV=dev_noble
 
 script:
   - distro=$(lsb_release -c -s)
