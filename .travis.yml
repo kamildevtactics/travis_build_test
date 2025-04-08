@@ -20,8 +20,8 @@ after_success:
   
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
   - cd travis_build_test
-  - ls -ltr
   - mkdir -p $distro
+  - ls -ltr
   - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
