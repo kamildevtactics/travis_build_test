@@ -19,7 +19,7 @@ after_success:
   - git config --global user.email "kamil.maludzinski@devtactics.net"
   
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
-  - cd <your-repo>
+  - cd travis_build_test
   - ls -ltr
   - mkdir -p $distro
   - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
