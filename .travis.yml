@@ -35,24 +35,111 @@ after_success:
         echo "Found $DEV_ENV installed package list, generating diff report...";
         DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt";
         
-        echo "=== Packages present in $DEV_ENV but missing in $TARGET_ENV ===" > $DIFF_REPORT;
-        diff --new-line-format="+ %L" --old-line-format="" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
-        echo "=== Packages present in $TARGET_ENV but missing in $DEV_ENV ===" >> $DIFF_REPORT;
-        diff --new-line-format="" --old-line-format="- %L" --unchanged-line-format="" $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
-        echo "=== Packages with different versions between $TARGET_ENV and $DEV_ENV ===" >> $DIFF_REPORT;
+        # Create a fresh report with a header and timestamp
+        echo "======================================================" > $DIFF_REPORT
+        echo "    PACKAGE COMPARISON REPORT: $TARGET_ENV vs $DEV_ENV" >> $DIFF_REPORT
+        echo "    Generated on: $(date)" >> $DIFF_REPORT
+        echo "======================================================" >> $DIFF_REPORT
+        echo "" >> $DIFF_REPORT
         
-        awk -F'/' '
-          NR==FNR { a[$1]=$2; next }
-          $1 in a && $2 != a[$1] { print $1 " - " a[$1] " -> " $2 }
-        ' $distro/${DEV_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
-        awk -F'/' '
-          NR==FNR { a[$1]=$2; next }
-          $1 in a && $2 != a[$1] { print $1 " - " $2 " -> " a[$1] }
-        ' $distro/${TARGET_ENV}_installed_packages.txt $distro/${DEV_ENV}_installed_packages.txt >> $DIFF_REPORT;
-
+        # Process the package lists to extract clean package name and version
+        # This creates temporary files with consistent format: package_name version
+        awk -F'/' '{print $1, $2}' $distro/${TARGET_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${TARGET_ENV}_clean.txt
+        awk -F'/' '{print $1, $2}' $distro/${DEV_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${DEV_ENV}_clean.txt
+        
+        # 1. PACKAGES ADDED (in dev but not in stable)
+        echo "1. PACKAGES ADDED (present in $DEV_ENV but missing in $TARGET_ENV)" >> $DIFF_REPORT
+        echo "--------------------------------------------------------------" >> $DIFF_REPORT
+        ADDED_COUNT=0
+        
+        # Get only package names for comparison
+        cut -d' ' -f1 ${TARGET_ENV}_clean.txt | sort > ${TARGET_ENV}_names.txt
+        cut -d' ' -f1 ${DEV_ENV}_clean.txt | sort > ${DEV_ENV}_names.txt
+        
+        # Find packages in dev but not in stable
+        comm -23 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > added_packages.txt
+        
+        # For each added package, get its version from the dev list
+        while read pkg; do
+          # Skip empty lines
+          if [ -z "$pkg" ]; then continue; fi
+          ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          echo "  ➕ $pkg - version $ver" >> $DIFF_REPORT
+          ADDED_COUNT=$((ADDED_COUNT+1))
+        done < added_packages.txt
+        
+        if [ $ADDED_COUNT -eq 0 ]; then
+          echo "  None" >> $DIFF_REPORT
+        fi
+        echo "" >> $DIFF_REPORT
+        
+        # 2. PACKAGES REMOVED (in stable but not in dev)
+        echo "2. PACKAGES REMOVED (present in $TARGET_ENV but missing in $DEV_ENV)" >> $DIFF_REPORT
+        echo "--------------------------------------------------------------" >> $DIFF_REPORT
+        REMOVED_COUNT=0
+        
+        # Find packages in stable but not in dev
+        comm -13 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > removed_packages.txt
+        
+        # For each removed package, get its version from the stable list
+        while read pkg; do
+          # Skip empty lines
+          if [ -z "$pkg" ]; then continue; fi
+          ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
+          echo "  ➖ $pkg - version $ver" >> $DIFF_REPORT
+          REMOVED_COUNT=$((REMOVED_COUNT+1))
+        done < removed_packages.txt
+        
+        if [ $REMOVED_COUNT -eq 0 ]; then
+          echo "  None" >> $DIFF_REPORT
+        fi
+        echo "" >> $DIFF_REPORT
+        
+        # 3. VERSION DIFFERENCES
+        echo "3. PACKAGES WITH VERSION CHANGES ($TARGET_ENV vs $DEV_ENV)" >> $DIFF_REPORT
+        echo "--------------------------------------------------------------" >> $DIFF_REPORT
+        VERSION_COUNT=0
+        
+        # Find packages that exist in both but have different versions
+        # Get all common packages
+        comm -12 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > common_packages.txt
+        
+        # Check each common package for version differences
+        while read pkg; do
+          # Skip empty lines
+          if [ -z "$pkg" ]; then continue; fi
+          
+          stable_ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
+          dev_ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          
+          if [ "$stable_ver" != "$dev_ver" ]; then
+            echo "  🔄 $pkg" >> $DIFF_REPORT
+            echo "     $TARGET_ENV: $stable_ver" >> $DIFF_REPORT
+            echo "     $DEV_ENV:    $dev_ver" >> $DIFF_REPORT
+            echo "" >> $DIFF_REPORT
+            VERSION_COUNT=$((VERSION_COUNT+1))
+          fi
+        done < common_packages.txt
+        
+        if [ $VERSION_COUNT -eq 0 ]; then
+          echo "  None" >> $DIFF_REPORT
+        fi
+        echo "" >> $DIFF_REPORT
+        
+        # 4. SUMMARY
+        echo "4. SUMMARY" >> $DIFF_REPORT
+        echo "--------------------------------------------------------------" >> $DIFF_REPORT
+        echo "  Total packages added:    $ADDED_COUNT" >> $DIFF_REPORT
+        echo "  Total packages removed:  $REMOVED_COUNT" >> $DIFF_REPORT
+        echo "  Total version changes:   $VERSION_COUNT" >> $DIFF_REPORT
+        echo "  Total differences:       $((ADDED_COUNT+REMOVED_COUNT+VERSION_COUNT))" >> $DIFF_REPORT
+        echo "" >> $DIFF_REPORT
+        
+        # Clean up temp files
+        rm -f ${TARGET_ENV}_clean.txt ${DEV_ENV}_clean.txt
+        rm -f ${TARGET_ENV}_names.txt ${DEV_ENV}_names.txt
+        rm -f added_packages.txt removed_packages.txt common_packages.txt
+        
         echo "Comparison complete. Saving report to $DIFF_REPORT";
         cat $DIFF_REPORT;
         git add $DIFF_REPORT;
