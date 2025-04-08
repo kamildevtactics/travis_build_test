@@ -1,11 +1,10 @@
 env:
   global:
     # GitHub configuration
-    - GH_USERNAME=${GH_USERNAME:-"<your-github-username>"}
-    - GH_EMAIL=${GH_EMAIL:-"<your-github-email>"}
-    - GH_REPO=${GH_REPO:-"<your-repo>"}
-    - GIT_BRANCH=${GIT_BRANCH:-"main"}
-
+    - GH_USERNAME=kamildevtactics
+    - GH_EMAIL=kamil.maludzinski@devtactics.net
+    - GH_REPO=travis_build_test
+    - GIT_BRANCH=main
 jobs:
   include:
     - dist: noble
