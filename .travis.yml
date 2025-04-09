@@ -1,12 +1,12 @@
 jobs:
   include:
-    - dist: jammy
+    - dist: noble
       env:
-        - TARGET_ENV=stable_jammy
-    - dist: jammy
+        - TARGET_ENV=stable_noble
+    - dist: noble
       group: dev
       env:
-        - TARGET_ENV=dev_jammy
+        - TARGET_ENV=dev_noble
 
 script:
   - distro=$(lsb_release -c -s)
