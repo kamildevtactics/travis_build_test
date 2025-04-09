@@ -1,0 +1,49 @@
+======================================================
+    PACKAGE COMPARISON REPORT: stable_bionic vs dev_bionic
+======================================================
+
+1. PACKAGES ADDED (present in dev_bionic but missing in stable_bionic)
+--------------------------------------------------------------
+   + catatonit - version 0.1.7-1
+   + conmon - version 100:2.1.2~0
+   + containernetworking-plugins - version 100:1.1.1~1
+   + containers-common - version 100:1-22
+   + criu - version 3.17.1-1
+   + crun - version 100:1.2-2
+   + libgpgme11 - version 1.10.0-1ubuntu2
+   + libnet1 - version 1.1.6+dfsg-3.1
+   + libprotobuf10 - version 3.0.0-9.1ubuntu1.1
+   + libprotobuf-c1 - version 1.2.1-2
+   + libyajl2 - version 2.1.0-2build1
+   + podman - version 100:3.4.2-5
+   + podman-machine-cni - version 100:0.0.0-1
+   + podman-plugins - version 100:1.2.0-1
+   + python3-protobuf - version 3.0.0-9.1ubuntu1.1
+
+2. PACKAGES REMOVED (present in stable_bionic but missing in dev_bionic)
+--------------------------------------------------------------
+   None
+
+3. PACKAGES WITH VERSION CHANGES (stable_bionic vs dev_bionic)
+--------------------------------------------------------------
+   * elasticsearch
+     stable_bionic: 7.16.3
+     dev_bionic:    8.17.1
+
+   * google-chrome-stable
+     stable_bionic: 134.0.6998.35-1
+     dev_bionic:    135.0.7049.52-1
+
+
+4. SUMMARY
+--------------------------------------------------------------
+   Total packages added:    15
+   Total packages removed:  0
+   Total version changes:   2
+   Total differences:       17
+
+5. KERNEL VERSION CHANGES
+--------------------------------------------------------------
+   Kernel packages removed:
+
+   Kernel packages added:
