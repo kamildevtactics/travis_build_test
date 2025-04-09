@@ -1,12 +1,12 @@
 jobs:
   include:
-    - dist: bionic
+    - dist: noble
       env:
-        - TARGET_ENV=stable_bionic
-    - dist: bionic
+        - TARGET_ENV=stable_noble
+    - dist: noble
       group: dev
       env:
-        - TARGET_ENV=dev_bionic
+        - TARGET_ENV=dev_noble
 
 script:
   - distro=$(lsb_release -c -s)
@@ -14,7 +14,6 @@ script:
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
 after_success:
-  # Set up Git configuration
   - git config --global user.name "kamildevtactics"
   - git config --global user.email "kamil.maludzinski@devtactics.net"
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
@@ -25,7 +24,6 @@ after_success:
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
   - git push origin main
-  # The comparison script needs to be in a proper YAML multi-line string format
   - |
     if [[ "$TARGET_ENV" == *"stable"* ]]; then
       echo "Comparing stable and dev installed packages..."
@@ -35,10 +33,9 @@ after_success:
         echo "Found $DEV_ENV installed package list, generating diff report..."
         DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt"
         
-        # Create a fresh report with a header and timestamp
+        # Create a fresh report with a header (bez timestampa, żeby uniknąć pętli)
         echo "======================================================" > $DIFF_REPORT
         echo "    PACKAGE COMPARISON REPORT: $TARGET_ENV vs $DEV_ENV" >> $DIFF_REPORT
-        echo "    Generated on: $(date)" >> $DIFF_REPORT
         echo "======================================================" >> $DIFF_REPORT
         echo "" >> $DIFF_REPORT
         
