@@ -1,6 +1,6 @@
 env:
   global:
-    - UBUNTU_DIST=bionic
+    - UBUNTU_DIST=jammy
 
 jobs:
   include:
