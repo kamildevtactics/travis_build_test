@@ -1,0 +1,442 @@
+======================================================
+    PACKAGE COMPARISON REPORT: stable_noble vs dev_noble
+======================================================
+
+1. PACKAGES ADDED (present in dev_noble but missing in stable_noble)
+--------------------------------------------------------------
+   + catatonit - version 0.1.7-1
+   + conmon - version 100:2.1.2~0
+   + containernetworking-plugins - version 1.1.1+ds1-3ubuntu0.24.04.2
+   + golang-github-containers-common - version 0.57.4+ds1-2ubuntu0.1
+   + golang-github-containers-image - version 5.29.2-2
+   + libgpgme11t64 - version 1.18.0-4.1ubuntu4
+   + libsubid4 - version 1:4.13+dfsg1-4ubuntu3.2
+   + linux-gcp-tools-6.8.0-1027 - version 6.8.0-1027.29
+   + linux-headers-6.8.0-57 - version 6.8.0-57.59
+   + linux-headers-6.8.0-57-generic - version 6.8.0-57.59
+   + linux-image-6.8.0-1027-gcp - version 6.8.0-1027.29
+   + linux-image-6.8.0-57-generic - version 6.8.0-57.59
+   + linux-modules-6.8.0-1027-gcp - version 6.8.0-1027.29
+   + linux-modules-6.8.0-57-generic - version 6.8.0-57.59
+   + linux-modules-extra-6.8.0-57-generic - version 6.8.0-57.59
+   + linux-tools-6.8.0-1027-gcp - version 6.8.0-1027.29
+   + podman - version 4.9.3+ds1-1ubuntu0.2
+   + uidmap - version 1:4.13+dfsg1-4ubuntu3.2
+
+2. PACKAGES REMOVED (present in stable_noble but missing in dev_noble)
+--------------------------------------------------------------
+   - linux-gcp-tools-6.8.0-1024 - version 6.8.0-1024.26
+   - linux-headers-6.8.0-55 - version 6.8.0-55.57
+   - linux-headers-6.8.0-55-generic - version 6.8.0-55.57
+   - linux-image-6.8.0-1024-gcp - version 6.8.0-1024.26
+   - linux-image-6.8.0-55-generic - version 6.8.0-55.57
+   - linux-modules-6.8.0-1024-gcp - version 6.8.0-1024.26
+   - linux-modules-6.8.0-55-generic - version 6.8.0-55.57
+   - linux-modules-extra-6.8.0-55-generic - version 6.8.0-55.57
+   - linux-tools-6.8.0-1024-gcp - version 6.8.0-1024.26
+
+3. PACKAGES WITH VERSION CHANGES (stable_noble vs dev_noble)
+--------------------------------------------------------------
+   * cloud-init
+     stable_noble: 24.4.1-0ubuntu0~24.04.1
+     dev_noble:    24.4.1-0ubuntu0~24.04.2
+
+   * containerd
+     stable_noble: 1.7.24-0ubuntu1~24.04.1
+     dev_noble:    1.7.24-0ubuntu1~24.04.2
+
+   * containerd.io
+     stable_noble: 1.7.25-1
+     dev_noble:    1.7.27-1
+
+   * dirmngr
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * docker-buildx-plugin
+     stable_noble: 0.21.1-1~ubuntu.24.04~noble
+     dev_noble:    0.22.0-1~ubuntu.24.04~noble
+
+   * docker-ce
+     stable_noble: 5:28.0.1-1~ubuntu.24.04~noble
+     dev_noble:    5:28.0.4-1~ubuntu.24.04~noble
+
+   * docker-ce-cli
+     stable_noble: 5:28.0.1-1~ubuntu.24.04~noble
+     dev_noble:    5:28.0.4-1~ubuntu.24.04~noble
+
+   * docker-compose-plugin
+     stable_noble: 2.33.1-1~ubuntu.24.04~noble
+     dev_noble:    2.34.0-1~ubuntu.24.04~noble
+
+   * erlang-asn1
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-base
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-crypto
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-eldap
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-ftp
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-inets
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-mnesia
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-os-mon
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-parsetools
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-public-key
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-runtime-tools
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-snmp
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-ssl
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-syntax-tools
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-tftp
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-tools
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * erlang-xmerl
+     stable_noble: 1:27.3-1
+     dev_noble:    1:27.3.2-1
+
+   * git
+     stable_noble: 1:2.48.1-0ppa1~ubuntu24.04.1
+     dev_noble:    1:2.49.0-0ubuntu1~ubuntu24.04.1
+
+   * git-man
+     stable_noble: 1:2.48.1-0ppa1~ubuntu24.04.1
+     dev_noble:    1:2.49.0-0ubuntu1~ubuntu24.04.1
+
+   * gnupg
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gnupg2
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gnupg-l10n
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gnupg-utils
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * google-chrome-stable
+     stable_noble: 134.0.6998.88-1
+     dev_noble:    135.0.7049.52-1
+
+   * gpg
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gpg-agent
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gpgconf
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gpgsm
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gpgv
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * gpg-wks-client
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * keyboxd
+     stable_noble: 2.4.4-2ubuntu17
+     dev_noble:    2.4.4-2ubuntu17.2
+
+   * landscape-common
+     stable_noble: 24.02-0ubuntu5.2
+     dev_noble:    24.02-0ubuntu5.3
+
+   * libcap2
+     stable_noble: 1:2.66-5ubuntu2.2
+     dev_noble:    100:2.48-1
+
+   * libcap2-bin
+     stable_noble: 1:2.66-5ubuntu2.2
+     dev_noble:    100:2.48-1
+
+   * libdw1t64
+     stable_noble: 0.190-1.1build4.1
+     dev_noble:    0.190-1.1ubuntu0.1
+
+   * libelf1t64
+     stable_noble: 0.190-1.1build4.1
+     dev_noble:    0.190-1.1ubuntu0.1
+
+   * libelf-dev
+     stable_noble: 0.190-1.1build4.1
+     dev_noble:    0.190-1.1ubuntu0.1
+
+   * liblzma5
+     stable_noble: 5.6.1+really5.4.5-1build0.1
+     dev_noble:    5.6.1+really5.4.5-1ubuntu0.2
+
+   * liblzma-dev
+     stable_noble: 5.6.1+really5.4.5-1build0.1
+     dev_noble:    5.6.1+really5.4.5-1ubuntu0.2
+
+   * libnss-systemd
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libpam-cap
+     stable_noble: 1:2.66-5ubuntu2.2
+     dev_noble:    100:2.48-1
+
+   * libpam-systemd
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libplymouth5
+     stable_noble: 24.004.60-1ubuntu7
+     dev_noble:    24.004.60-1ubuntu7.1
+
+   * libsystemd0
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libsystemd-dev
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libsystemd-shared
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libudev1
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * libxslt1.1
+     stable_noble: 1.1.39-0exp1build1
+     dev_noble:    1.1.39-0exp1ubuntu0.24.04.2
+
+   * libxslt1-dev
+     stable_noble: 1.1.39-0exp1build1
+     dev_noble:    1.1.39-0exp1ubuntu0.24.04.2
+
+   * linux-headers-generic
+     stable_noble: 6.8.0-55.57
+     dev_noble:    6.8.0-57.59
+
+   * linux-image-gcp
+     stable_noble: 6.8.0-1025.27
+     dev_noble:    6.8.0-1027.29
+
+   * linux-image-generic
+     stable_noble: 6.8.0-55.57
+     dev_noble:    6.8.0-57.59
+
+   * linux-libc-dev
+     stable_noble: 6.8.0-55.57
+     dev_noble:    6.8.0-57.59
+
+   * linux-tools-common
+     stable_noble: 6.8.0-55.57
+     dev_noble:    6.8.0-57.59
+
+   * mongodb-database-tools
+     stable_noble: 100.11.0
+     dev_noble:    100.12.0
+
+   * mongodb-org
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-database
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-database-tools-extra
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-mongos
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-server
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-shell
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * mongodb-org-tools
+     stable_noble: 8.0.5
+     dev_noble:    8.0.6
+
+   * openssh-client
+     stable_noble: 1:9.6p1-3ubuntu13.8
+     dev_noble:    1:9.6p1-3ubuntu13.9
+
+   * openssh-server
+     stable_noble: 1:9.6p1-3ubuntu13.8
+     dev_noble:    1:9.6p1-3ubuntu13.9
+
+   * openssh-sftp-server
+     stable_noble: 1:9.6p1-3ubuntu13.8
+     dev_noble:    1:9.6p1-3ubuntu13.9
+
+   * plymouth
+     stable_noble: 24.004.60-1ubuntu7
+     dev_noble:    24.004.60-1ubuntu7.1
+
+   * plymouth-theme-ubuntu-text
+     stable_noble: 24.004.60-1ubuntu7
+     dev_noble:    24.004.60-1ubuntu7.1
+
+   * rabbitmq-server
+     stable_noble: 4.0.7-1
+     dev_noble:    4.0.8-1
+
+   * rsyslog
+     stable_noble: 8.2312.0-3ubuntu9
+     dev_noble:    8.2312.0-3ubuntu9.1
+
+   * systemd
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * systemd-dev
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * systemd-resolved
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * systemd-sysv
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * tzdata
+     stable_noble: 2024b-0ubuntu0.24.04.1
+     dev_noble:    2025b-0ubuntu0.24.04
+
+   * tzdata-legacy
+     stable_noble: 2024b-0ubuntu0.24.04.1
+     dev_noble:    2025b-0ubuntu0.24.04
+
+   * udev
+     stable_noble: 255.4-1ubuntu8.5
+     dev_noble:    255.4-1ubuntu8.6
+
+   * update-notifier-common
+     stable_noble: 3.192.68build3
+     dev_noble:    3.192.68.1
+
+   * vim
+     stable_noble: 2:9.1.0016-1ubuntu7.6
+     dev_noble:    2:9.1.0016-1ubuntu7.7
+
+   * vim-common
+     stable_noble: 2:9.1.0016-1ubuntu7.6
+     dev_noble:    2:9.1.0016-1ubuntu7.7
+
+   * vim-runtime
+     stable_noble: 2:9.1.0016-1ubuntu7.6
+     dev_noble:    2:9.1.0016-1ubuntu7.7
+
+   * vim-tiny
+     stable_noble: 2:9.1.0016-1ubuntu7.6
+     dev_noble:    2:9.1.0016-1ubuntu7.7
+
+   * xserver-common
+     stable_noble: 2:21.1.12-1ubuntu1.2
+     dev_noble:    2:21.1.12-1ubuntu1.3
+
+   * xserver-xorg-core
+     stable_noble: 2:21.1.12-1ubuntu1.2
+     dev_noble:    2:21.1.12-1ubuntu1.3
+
+   * xvfb
+     stable_noble: 2:21.1.12-1ubuntu1.2
+     dev_noble:    2:21.1.12-1ubuntu1.3
+
+   * xxd
+     stable_noble: 2:9.1.0016-1ubuntu7.6
+     dev_noble:    2:9.1.0016-1ubuntu7.7
+
+   * xz-utils
+     stable_noble: 5.6.1+really5.4.5-1build0.1
+     dev_noble:    5.6.1+really5.4.5-1ubuntu0.2
+
+
+4. SUMMARY
+--------------------------------------------------------------
+   Total packages added:    18
+   Total packages removed:  9
+   Total version changes:   94
+   Total differences:       121
+
+5. KERNEL VERSION CHANGES
+--------------------------------------------------------------
+   Kernel packages removed:
+   - linux-headers-6.8.0-55 (version 6.8.0-55.57)
+   - linux-headers-6.8.0-55-generic (version 6.8.0-55.57)
+   - linux-image-6.8.0-1024-gcp (version 6.8.0-1024.26)
+   - linux-image-6.8.0-55-generic (version 6.8.0-55.57)
+   - linux-modules-6.8.0-1024-gcp (version 6.8.0-1024.26)
+   - linux-modules-6.8.0-55-generic (version 6.8.0-55.57)
+   - linux-modules-extra-6.8.0-55-generic (version 6.8.0-55.57)
+
+   Kernel packages added:
+   + linux-headers-6.8.0-57 (version 6.8.0-57.59)
+   + linux-headers-6.8.0-57-generic (version 6.8.0-57.59)
+   + linux-image-6.8.0-1027-gcp (version 6.8.0-1027.29)
+   + linux-image-6.8.0-57-generic (version 6.8.0-57.59)
+   + linux-modules-6.8.0-1027-gcp (version 6.8.0-1027.29)
+   + linux-modules-6.8.0-57-generic (version 6.8.0-57.59)
+   + linux-modules-extra-6.8.0-57-generic (version 6.8.0-57.59)
