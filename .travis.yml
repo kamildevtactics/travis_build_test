@@ -1,6 +1,6 @@
 env:
   global:
-    - UBUNTU_DIST=jammy
+    - UBUNTU_DIST=focal
 
 jobs:
   include:
