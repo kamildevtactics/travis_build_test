@@ -1,0 +1,341 @@
+======================================================
+    PACKAGE COMPARISON REPORT: stable_focal vs dev_focal
+======================================================
+
+1. PACKAGES ADDED (present in dev_focal but missing in stable_focal)
+--------------------------------------------------------------
+   + catatonit - version 0.1.7-1
+   + conmon - version 100:2.1.2~0
+   + containernetworking-plugins - version 100:1.1.1~1
+   + containers-common - version 100:1-22
+   + criu - version 4.0-3
+   + crun - version 100:1.2-2
+   + dnsmasq-base - version 2.90-0ubuntu0.20.04.1
+   + libgpgme11 - version 1.13.1-7ubuntu2.2
+   + libidn11 - version 1.33-2.2ubuntu2
+   + libjansson4 - version 2.12-1build1
+   + libnet1 - version 1.1.6+dfsg-3.1build1
+   + libnftables1 - version 0.9.3-2
+   + libprotobuf17 - version 3.6.1.3-2ubuntu5.2
+   + libprotobuf-c1 - version 1.3.3-1ubuntu0.1
+   + libyajl2 - version 2.1.0-3ubuntu0.20.04.1
+   + linux-headers-5.4.0-212 - version 5.4.0-212.232
+   + linux-headers-5.4.0-212-generic - version 5.4.0-212.232
+   + linux-image-5.15.0-1078-gcp - version 5.15.0-1078.87~20.04.1
+   + linux-image-unsigned-5.4.0-212-generic - version 5.4.0-212.232
+   + linux-modules-5.15.0-1078-gcp - version 5.15.0-1078.87~20.04.1
+   + linux-modules-5.4.0-212-generic - version 5.4.0-212.232
+   + podman - version 100:3.4.2-5
+   + podman-machine-cni - version 100:0.0.0-1
+   + podman-plugins - version 100:1.2.0-1
+   + python3-protobuf - version 3.6.1.3-2ubuntu5.2
+   + uidmap - version 1:4.8.1-1ubuntu5.20.04.5
+
+2. PACKAGES REMOVED (present in stable_focal but missing in dev_focal)
+--------------------------------------------------------------
+   - linux-headers-5.4.0-208 - version 5.4.0-208.228
+   - linux-headers-5.4.0-208-generic - version 5.4.0-208.228
+   - linux-image-5.15.0-1075-gcp - version 5.15.0-1075.84~20.04.1
+   - linux-image-5.15.0-1077-gcp - version 5.15.0-1077.86~20.04.1
+   - linux-image-gcp - version 5.15.0.1077.86~20.04.1
+   - linux-modules-5.15.0-1075-gcp - version 5.15.0-1075.84~20.04.1
+   - linux-modules-5.15.0-1077-gcp - version 5.15.0-1077.86~20.04.1
+   - linux-modules-5.4.0-208-generic - version 5.4.0-208.228
+
+3. PACKAGES WITH VERSION CHANGES (stable_focal vs dev_focal)
+--------------------------------------------------------------
+   * cloud-init
+     stable_focal: 24.4.1-0ubuntu0~20.04.1
+     dev_focal:    24.4.1-0ubuntu0~20.04.2
+
+   * containerd
+     stable_focal: 1.7.24-0ubuntu1~20.04.1
+     dev_focal:    1.7.24-0ubuntu1~20.04.2
+
+   * containerd.io
+     stable_focal: 1.7.25-1
+     dev_focal:    1.7.27-1
+
+   * couchdb
+     stable_focal: 3.4.2~focal
+     dev_focal:    3.4.3~focal
+
+   * docker-buildx-plugin
+     stable_focal: 0.21.1-1~ubuntu.20.04~focal
+     dev_focal:    0.22.0-1~ubuntu.20.04~focal
+
+   * docker-ce
+     stable_focal: 5:28.0.1-1~ubuntu.20.04~focal
+     dev_focal:    5:28.0.4-1~ubuntu.20.04~focal
+
+   * docker-ce-cli
+     stable_focal: 5:28.0.1-1~ubuntu.20.04~focal
+     dev_focal:    5:28.0.4-1~ubuntu.20.04~focal
+
+   * docker-compose-plugin
+     stable_focal: 2.33.1-1~ubuntu.20.04~focal
+     dev_focal:    2.34.0-1~ubuntu.20.04~focal
+
+   * elasticsearch
+     stable_focal: 7.16.3
+     dev_focal:    8.17.1
+
+   * erlang-asn1
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-base
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-crypto
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-eldap
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-ftp
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-inets
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-mnesia
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-os-mon
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-parsetools
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-public-key
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-runtime-tools
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-snmp
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-ssl
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-syntax-tools
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-tftp
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-tools
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * erlang-xmerl
+     stable_focal: 1:26.2.5.9-1
+     dev_focal:    1:26.2.5.10-1
+
+   * git
+     stable_focal: 1:2.48.1-0ppa1~ubuntu20.04.1
+     dev_focal:    1:2.49.0-0ubuntu1~ubuntu20.04.1
+
+   * git-man
+     stable_focal: 1:2.48.1-0ppa1~ubuntu20.04.1
+     dev_focal:    1:2.49.0-0ubuntu1~ubuntu20.04.1
+
+   * google-chrome-stable
+     stable_focal: 133.0.6943.141-1
+     dev_focal:    135.0.7049.52-1
+
+   * helix-cli
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * helix-cli-base
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * helix-p4d
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * helix-p4d-base
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * helix-p4d-base-24.2
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * helix-p4dctl
+     stable_focal: 2024.2-2697822~focal
+     dev_focal:    2024.2-2726408~focal
+
+   * krb5-locales
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * krb5-multidev
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libfreetype6
+     stable_focal: 2.10.1-2ubuntu0.3
+     dev_focal:    2.10.1-2ubuntu0.4
+
+   * libfreetype6-dev
+     stable_focal: 2.10.1-2ubuntu0.3
+     dev_focal:    2.10.1-2ubuntu0.4
+
+   * libfreetype-dev
+     stable_focal: 2.10.1-2ubuntu0.3
+     dev_focal:    2.10.1-2ubuntu0.4
+
+   * libgssapi-krb5-2
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libgssrpc4
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libk5crypto3
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkadm5clnt-mit11
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkadm5srv-mit11
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkdb5-9
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkrb5-3
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkrb5-dev
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libkrb5support0
+     stable_focal: 1.17-6ubuntu4.8
+     dev_focal:    1.17-6ubuntu4.9
+
+   * libpython3.8
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-dev
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-minimal
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-stdlib
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * libxslt1.1
+     stable_focal: 1.1.34-4ubuntu0.20.04.1
+     dev_focal:    1.1.34-4ubuntu0.20.04.3
+
+   * libxslt1-dev
+     stable_focal: 1.1.34-4ubuntu0.20.04.1
+     dev_focal:    1.1.34-4ubuntu0.20.04.3
+
+   * linux-headers-generic
+     stable_focal: 5.4.0.208.204
+     dev_focal:    5.4.0.212.207
+
+   * linux-libc-dev
+     stable_focal: 5.4.0-208.228
+     dev_focal:    5.4.0-212.232
+
+   * python3.8
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * python3.8-dev
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * python3.8-minimal
+     stable_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal:    3.8.10-0ubuntu1~20.04.18
+
+   * python3-jinja2
+     stable_focal: 2.10.1-2ubuntu0.4
+     dev_focal:    2.10.1-2ubuntu0.6
+
+   * snapd
+     stable_focal: 2.66.1+20.04
+     dev_focal:    2.67.1+20.04
+
+   * sosreport
+     stable_focal: 4.7.2-0ubuntu1~20.04.2
+     dev_focal:    4.8.2-0ubuntu0~20.04.1
+
+   * tzdata
+     stable_focal: 2024b-0ubuntu0.20.04.1
+     dev_focal:    2025a-0ubuntu0.20.04
+
+   * xserver-common
+     stable_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal:    2:1.20.13-1ubuntu1~20.04.20
+
+   * xserver-xorg-core
+     stable_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal:    2:1.20.13-1ubuntu1~20.04.20
+
+   * xvfb
+     stable_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal:    2:1.20.13-1ubuntu1~20.04.20
+
+
+4. SUMMARY
+--------------------------------------------------------------
+   Total packages added:    26
+   Total packages removed:  8
+   Total version changes:   67
+   Total differences:       101
+
+5. KERNEL VERSION CHANGES
+--------------------------------------------------------------
+   Kernel packages removed:
+   - linux-headers-5.4.0-208 (version 5.4.0-208.228)
+   - linux-headers-5.4.0-208-generic (version 5.4.0-208.228)
+   - linux-image-5.15.0-1075-gcp (version 5.15.0-1075.84~20.04.1)
+   - linux-image-5.15.0-1077-gcp (version 5.15.0-1077.86~20.04.1)
+   - linux-image-gcp (version 5.15.0.1077.86~20.04.1)
+   - linux-modules-5.15.0-1075-gcp (version 5.15.0-1075.84~20.04.1)
+   - linux-modules-5.15.0-1077-gcp (version 5.15.0-1077.86~20.04.1)
+   - linux-modules-5.4.0-208-generic (version 5.4.0-208.228)
+
+   Kernel packages added:
+   + linux-headers-5.4.0-212 (version 5.4.0-212.232)
+   + linux-headers-5.4.0-212-generic (version 5.4.0-212.232)
+   + linux-image-5.15.0-1078-gcp (version 5.15.0-1078.87~20.04.1)
+   + linux-image-unsigned-5.4.0-212-generic (version 5.4.0-212.232)
+   + linux-modules-5.15.0-1078-gcp (version 5.15.0-1078.87~20.04.1)
+   + linux-modules-5.4.0-212-generic (version 5.4.0-212.232)
