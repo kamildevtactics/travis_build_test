@@ -1,183 +1,155 @@
 ======================================================
     PACKAGE COMPARISON REPORT: stable_noble vs dev_noble
-    Generated on: Wed Apr  9 02:03:00 AM UTC 2025
+    Generated on: Wed Apr  9 02:03:28 AM UTC 2025
 ======================================================
 
 1. PACKAGES ADDED (present in dev_noble but missing in stable_noble)
 --------------------------------------------------------------
    + catatonit - version unknown
    + conmon - version unknown
-   + containernetworking-plugins - version noble-security
-   + golang-github-containers-common - version now
-   + golang-github-containers-image - version now
-   + libgpgme11t64 - version now
-   + libsubid4 - version now
-   + linux-gcp-tools-6.8.0-1027 - version noble-security
-   + linux-headers-6.8.0-57 - version noble-security
-   + linux-headers-6.8.0-57-generic - version noble-security
-   + linux-image-6.8.0-1027-gcp - version noble-security
-   + linux-image-6.8.0-57-generic - version noble-security
-   + linux-modules-6.8.0-1027-gcp - version noble-security
-   + linux-modules-6.8.0-57-generic - version noble-security
-   + linux-modules-extra-6.8.0-57-generic - version noble-security
-   + linux-tools-6.8.0-1027-gcp - version noble-security
-   + podman - version now
-   + uidmap - version now
+   + containernetworking-plugins - version noble-updates
+   + golang-github-containers-common - version noble-updates
+   + golang-github-containers-image - version noble
+   + libgpgme11t64 - version noble
+   + libsubid4 - version noble-updates
+   + linux-gcp-tools-6.8.0-1027 - version noble-updates
+   + linux-headers-6.8.0-57 - version noble-updates
+   + linux-headers-6.8.0-57-generic - version noble-updates
+   + linux-image-6.8.0-1027-gcp - version noble-updates
+   + linux-image-6.8.0-57-generic - version noble-updates
+   + linux-modules-6.8.0-1027-gcp - version noble-updates
+   + linux-modules-6.8.0-57-generic - version noble-updates
+   + linux-modules-extra-6.8.0-57-generic - version noble-updates
+   + linux-tools-6.8.0-1027-gcp - version noble-updates
+   + podman - version noble-updates
+   + uidmap - version noble-updates
 
 2. PACKAGES REMOVED (present in stable_noble but missing in dev_noble)
 --------------------------------------------------------------
-   - linux-gcp-tools-6.8.0-1024 - version noble-security
-   - linux-headers-6.8.0-55 - version noble-security
-   - linux-headers-6.8.0-55-generic - version noble-security
-   - linux-image-6.8.0-1024-gcp - version noble-security
-   - linux-image-6.8.0-55-generic - version noble-security
-   - linux-modules-6.8.0-1024-gcp - version noble-security
-   - linux-modules-6.8.0-55-generic - version noble-security
-   - linux-modules-extra-6.8.0-55-generic - version noble-security
-   - linux-tools-6.8.0-1024-gcp - version noble-security
+   - linux-gcp-tools-6.8.0-1024 - version noble-updates
+   - linux-headers-6.8.0-55 - version noble-updates
+   - linux-headers-6.8.0-55-generic - version noble-updates
+   - linux-image-6.8.0-1024-gcp - version noble-updates
+   - linux-image-6.8.0-55-generic - version noble-updates
+   - linux-modules-6.8.0-1024-gcp - version noble-updates
+   - linux-modules-6.8.0-55-generic - version noble-updates
+   - linux-modules-extra-6.8.0-55-generic - version noble-updates
+   - linux-tools-6.8.0-1024-gcp - version noble-updates
 
 3. PACKAGES WITH VERSION CHANGES (stable_noble vs dev_noble)
 --------------------------------------------------------------
    * dirmngr
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gnupg
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gnupg2
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gnupg-l10n
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gnupg-utils
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpg
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpg-agent
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpgconf
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpgsm
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpgv
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * gpg-wks-client
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * keyboxd
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * libcap2
-     stable_noble: noble-security
+     stable_noble: noble-updates
      dev_noble:    unknown
 
    * libcap2-bin
-     stable_noble: noble-security
+     stable_noble: noble-updates
      dev_noble:    unknown
-
-   * libdw1t64
-     stable_noble: now
-     dev_noble:    noble-security
-
-   * libelf1t64
-     stable_noble: now
-     dev_noble:    noble-security
-
-   * libelf-dev
-     stable_noble: now
-     dev_noble:    noble-security
-
-   * liblzma5
-     stable_noble: now
-     dev_noble:    noble-security
-
-   * liblzma-dev
-     stable_noble: now
-     dev_noble:    noble-security
 
    * libpam-cap
-     stable_noble: noble-security
+     stable_noble: noble-updates
      dev_noble:    unknown
 
+   * libplymouth5
+     stable_noble: noble
+     dev_noble:    noble-updates
+
    * libxslt1.1
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
    * libxslt1-dev
-     stable_noble: now
-     dev_noble:    noble-security
+     stable_noble: noble
+     dev_noble:    noble-updates
 
-   * openssh-client
-     stable_noble: noble-security
-     dev_noble:    now
+   * plymouth
+     stable_noble: noble
+     dev_noble:    noble-updates
 
-   * openssh-server
-     stable_noble: noble-security
-     dev_noble:    now
+   * plymouth-theme-ubuntu-text
+     stable_noble: noble
+     dev_noble:    noble-updates
 
-   * openssh-sftp-server
-     stable_noble: noble-security
-     dev_noble:    now
+   * rsyslog
+     stable_noble: noble
+     dev_noble:    noble-updates
 
-   * xserver-common
-     stable_noble: noble-security
-     dev_noble:    now
-
-   * xserver-xorg-core
-     stable_noble: noble-security
-     dev_noble:    now
-
-   * xvfb
-     stable_noble: noble-security
-     dev_noble:    now
-
-   * xz-utils
-     stable_noble: now
-     dev_noble:    noble-security
+   * update-notifier-common
+     stable_noble: noble
+     dev_noble:    noble-updates
 
 
 4. SUMMARY
 --------------------------------------------------------------
    Total packages added:    18
    Total packages removed:  9
-   Total version changes:   29
-   Total differences:       56
+   Total version changes:   22
+   Total differences:       49
 
 5. KERNEL VERSION CHANGES
 --------------------------------------------------------------
    Kernel packages removed:
-   - linux-headers-6.8.0-55 (version noble-security)
-   - linux-headers-6.8.0-55-generic (version noble-security)
-   - linux-image-6.8.0-1024-gcp (version noble-security)
-   - linux-image-6.8.0-55-generic (version noble-security)
-   - linux-modules-6.8.0-1024-gcp (version noble-security)
-   - linux-modules-6.8.0-55-generic (version noble-security)
-   - linux-modules-extra-6.8.0-55-generic (version noble-security)
+   - linux-headers-6.8.0-55 (version noble-updates)
+   - linux-headers-6.8.0-55-generic (version noble-updates)
+   - linux-image-6.8.0-1024-gcp (version noble-updates)
+   - linux-image-6.8.0-55-generic (version noble-updates)
+   - linux-modules-6.8.0-1024-gcp (version noble-updates)
+   - linux-modules-6.8.0-55-generic (version noble-updates)
+   - linux-modules-extra-6.8.0-55-generic (version noble-updates)
 
    Kernel packages added:
-   + linux-headers-6.8.0-57 (version noble-security)
-   + linux-headers-6.8.0-57-generic (version noble-security)
-   + linux-image-6.8.0-1027-gcp (version noble-security)
-   + linux-image-6.8.0-57-generic (version noble-security)
-   + linux-modules-6.8.0-1027-gcp (version noble-security)
-   + linux-modules-6.8.0-57-generic (version noble-security)
-   + linux-modules-extra-6.8.0-57-generic (version noble-security)
+   + linux-headers-6.8.0-57 (version noble-updates)
+   + linux-headers-6.8.0-57-generic (version noble-updates)
+   + linux-image-6.8.0-1027-gcp (version noble-updates)
+   + linux-image-6.8.0-57-generic (version noble-updates)
+   + linux-modules-6.8.0-1027-gcp (version noble-updates)
+   + linux-modules-6.8.0-57-generic (version noble-updates)
+   + linux-modules-extra-6.8.0-57-generic (version noble-updates)
