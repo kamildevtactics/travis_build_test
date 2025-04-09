@@ -1,19 +1,25 @@
+env:
+  global:
+    - UBUNTU_DIST=noble
+
 jobs:
   include:
-    - dist: noble
+    - dist: $UBUNTU_DIST
       env:
-        - TARGET_ENV=stable_noble
-    - dist: noble
+        - TARGET_ENV=stable_$UBUNTU_DIST
+    - dist: $UBUNTU_DIST
       group: dev
       env:
-        - TARGET_ENV=dev_noble
+        - TARGET_ENV=dev_$UBUNTU_DIST
 
 script:
   - distro=$(lsb_release -c -s)
   - mkdir -p $distro
+  # Użyj dpkg-query zamiast apt list dla bardziej wiarygodnych informacji o wersjach pakietów
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
 after_success:
+  # Set up Git configuration
   - git config --global user.name "kamildevtactics"
   - git config --global user.email "kamil.maludzinski@devtactics.net"
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
@@ -24,6 +30,7 @@ after_success:
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
   - git push origin main
+  # The comparison script needs to be in a proper YAML multi-line string format
   - |
     if [[ "$TARGET_ENV" == *"stable"* ]]; then
       echo "Comparing stable and dev installed packages..."
