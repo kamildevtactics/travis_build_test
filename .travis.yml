@@ -1,17 +1,16 @@
 jobs:
   include:
-    - dist: noble
+    - dist: bionic
       env:
-        - TARGET_ENV=stable_noble
-    - dist: noble
+        - TARGET_ENV=stable_bionic
+    - dist: bionic
       group: dev
       env:
-        - TARGET_ENV=dev_noble
+        - TARGET_ENV=dev_bionic
 
 script:
   - distro=$(lsb_release -c -s)
   - mkdir -p $distro
-  # Użyj dpkg-query zamiast apt list dla bardziej wiarygodnych informacji o wersjach pakietów
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
 after_success:
