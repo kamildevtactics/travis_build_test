@@ -3,15 +3,14 @@ jobs:
     - dist: noble
       arch: ppc64le
       env:
-        - TARGET_ENV=stable_noble
-    - dist: noble
-      group: dev
+        - TARGET_ENV=noble
+    - dist: focal
       arch: ppc64le
       env:
-        - TARGET_ENV=dev_noble
+        - TARGET_ENV=focal
 
 script:
-  - distro=$(lsb_release -c -s)
+  - distro=ppc64le
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
