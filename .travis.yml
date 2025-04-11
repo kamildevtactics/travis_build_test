@@ -1,10 +1,12 @@
 jobs:
   include:
     - dist: noble
+        arch: ppc64le
       env:
         - TARGET_ENV=stable_noble
     - dist: noble
       group: dev
+        arch: ppc64le
       env:
         - TARGET_ENV=dev_noble
 
