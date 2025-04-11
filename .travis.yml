@@ -1,6 +1,6 @@
 jobs:
   include:
-    - dist: noble
+    - dist: jammy
       arch: ppc64le
       env:
         - TARGET_ENV=noble
