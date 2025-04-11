@@ -1,15 +1,15 @@
 jobs:
   include:
-    - dist: noble
+    - dist: jammy
       arch: ppc64le
       env:
-        - TARGET_ENV=noble
+        - TARGET_ENV=jammy
         - COMPARE_WITH=focal
     - dist: focal
       arch: ppc64le
       env:
         - TARGET_ENV=focal
-        - COMPARE_WITH=noble
+        - COMPARE_WITH=jammy
 
 script:
   - distro=ppc64le
