@@ -1,0 +1,28 @@
+======================================================
+    PACKAGE COMPARISON REPORT: stage_focal vs dev_focal
+======================================================
+
+1. PACKAGES ADDED (present in dev_focal but missing in stage_focal)
+--------------------------------------------------------------
+   None
+
+2. PACKAGES REMOVED (present in stage_focal but missing in dev_focal)
+--------------------------------------------------------------
+   None
+
+3. PACKAGES WITH VERSION CHANGES (stage_focal vs dev_focal)
+--------------------------------------------------------------
+   None
+
+4. SUMMARY
+--------------------------------------------------------------
+   Total packages added:    0
+   Total packages removed:  0
+   Total version changes:   0
+   Total differences:       0
+
+5. KERNEL VERSION CHANGES
+--------------------------------------------------------------
+   Kernel packages removed:
+
+   Kernel packages added:
