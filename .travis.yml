@@ -1,18 +1,16 @@
 jobs:
   include:
-    - dist: jammy
-      arch: ppc64le
-      env:
-        - TARGET_ENV=jammy
-        - COMPARE_WITH=focal
     - dist: focal
-      arch: ppc64le
       env:
-        - TARGET_ENV=focal
-        - COMPARE_WITH=jammy
+        - TARGET_ENV=stage_focal
+        - COMPARE_WITH=dev_focal
+    - dist: focal
+      env:
+        - TARGET_ENV=dev_focal
+        - COMPARE_WITH=stage_focal
 
 script:
-  - distro=ppc64le
+  - distro=focal
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
