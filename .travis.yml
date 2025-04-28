@@ -4,7 +4,7 @@ jobs:
       env:
         - TARGET_ENV=stage_noble
         - COMPARE_WITH=dev_noble
-    - dist: jammy
+    - dist: noble
       group: dev
       env:
         - TARGET_ENV=dev_noble
