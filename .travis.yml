@@ -14,7 +14,6 @@ script:
   - distro=noble
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
-
 after_success:
   - git config --global user.name "kamildevtactics"
   - git config --global user.email "kamil.maludzinski@devtactics.net"
