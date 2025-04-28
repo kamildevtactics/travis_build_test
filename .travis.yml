@@ -1,14 +1,14 @@
 jobs:
   include:
-    - dist: focal
+    - dist: jammy
       env:
-        - TARGET_ENV=stage_focal
-        - COMPARE_WITH=dev_focal
+        - TARGET_ENV=stage_jammy
+        - COMPARE_WITH=dev_jammy
     - dist: focal
       group: dev
       env:
-        - TARGET_ENV=dev_focal
-        - COMPARE_WITH=stage_focal
+        - TARGET_ENV=dev_jammy
+        - COMPARE_WITH=stage_jammy
 
 script:
   - distro=focal
