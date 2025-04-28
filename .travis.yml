@@ -1,17 +1,17 @@
 jobs:
   include:
-    - dist: jammy
+    - dist: noble
       env:
-        - TARGET_ENV=stage_jammy
-        - COMPARE_WITH=dev_jammy
+        - TARGET_ENV=stage_noble
+        - COMPARE_WITH=dev_noble
     - dist: jammy
       group: dev
       env:
-        - TARGET_ENV=dev_jammy
-        - COMPARE_WITH=stage_jammy
+        - TARGET_ENV=dev_noble
+        - COMPARE_WITH=stage_noble
 
 script:
-  - distro=jammy
+  - distro=noble
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
