@@ -1,0 +1,521 @@
+======================================================
+    PACKAGE COMPARISON REPORT: stage_focal vs dev_focal
+======================================================
+
+1. PACKAGES ADDED (present in dev_focal but missing in stage_focal)
+--------------------------------------------------------------
+   + linux-headers-5.4.0-214 - version 5.4.0-214.234
+   + linux-headers-5.4.0-214-generic - version 5.4.0-214.234
+   + linux-image-5.15.0-1081-gcp - version 5.15.0-1081.90~20.04.1
+   + linux-image-unsigned-5.4.0-214-generic - version 5.4.0-214.234
+   + linux-modules-5.15.0-1081-gcp - version 5.15.0-1081.90~20.04.1
+   + linux-modules-5.4.0-214-generic - version 5.4.0-214.234
+
+2. PACKAGES REMOVED (present in stage_focal but missing in dev_focal)
+--------------------------------------------------------------
+   - linux-headers-5.4.0-208 - version 5.4.0-208.228
+   - linux-headers-5.4.0-208-generic - version 5.4.0-208.228
+   - linux-image-5.15.0-1075-gcp - version 5.15.0-1075.84~20.04.1
+   - linux-image-5.15.0-1077-gcp - version 5.15.0-1077.86~20.04.1
+   - linux-image-gcp - version 5.15.0.1077.86~20.04.1
+   - linux-modules-5.15.0-1075-gcp - version 5.15.0-1075.84~20.04.1
+   - linux-modules-5.15.0-1077-gcp - version 5.15.0-1077.86~20.04.1
+   - linux-modules-5.4.0-208-generic - version 5.4.0-208.228
+
+3. PACKAGES WITH VERSION CHANGES (stage_focal vs dev_focal)
+--------------------------------------------------------------
+   * binutils
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * binutils-common
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * binutils-doc
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * binutils-x86-64-linux-gnu
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * cloud-init
+     stage_focal: 24.4.1-0ubuntu0~20.04.1
+     dev_focal: 24.4.1-0ubuntu0~20.04.2
+
+   * containerd
+     stage_focal: 1.7.24-0ubuntu1~20.04.1
+     dev_focal: 1.7.24-0ubuntu1~20.04.2
+
+   * containerd.io
+     stage_focal: 1.7.25-1
+     dev_focal: 1.7.27-1
+
+   * couchdb
+     stage_focal: 3.4.2~focal
+     dev_focal: 3.4.3.2~focal
+
+   * dirmngr
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * docker-buildx-plugin
+     stage_focal: 0.21.1-1~ubuntu.20.04~focal
+     dev_focal: 0.23.0-1~ubuntu.20.04~focal
+
+   * docker-ce
+     stage_focal: 5:28.0.1-1~ubuntu.20.04~focal
+     dev_focal: 5:28.1.1-1~ubuntu.20.04~focal
+
+   * docker-ce-cli
+     stage_focal: 5:28.0.1-1~ubuntu.20.04~focal
+     dev_focal: 5:28.1.1-1~ubuntu.20.04~focal
+
+   * docker-compose-plugin
+     stage_focal: 2.33.1-1~ubuntu.20.04~focal
+     dev_focal: 2.35.1-1~ubuntu.20.04~focal
+
+   * elasticsearch
+     stage_focal: 7.16.3
+     dev_focal: 8.17.1
+
+   * erlang-asn1
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-base
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-crypto
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-eldap
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-ftp
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-inets
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-mnesia
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-os-mon
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-parsetools
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-public-key
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-runtime-tools
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-snmp
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-ssl
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-syntax-tools
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-tftp
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-tools
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * erlang-xmerl
+     stage_focal: 1:26.2.5.9-1
+     dev_focal: 1:26.2.5.11-1
+
+   * git
+     stage_focal: 1:2.48.1-0ppa1~ubuntu20.04.1
+     dev_focal: 1:2.49.0-0ubuntu1~ubuntu20.04.1
+
+   * git-man
+     stage_focal: 1:2.48.1-0ppa1~ubuntu20.04.1
+     dev_focal: 1:2.49.0-0ubuntu1~ubuntu20.04.1
+
+   * gnupg
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gnupg2
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gnupg-l10n
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gnupg-utils
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * google-chrome-stable
+     stage_focal: 133.0.6943.141-1
+     dev_focal: 135.0.7049.114-1
+
+   * gpg
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpg-agent
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpgconf
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpgsm
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpgv
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpg-wks-client
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * gpg-wks-server
+     stage_focal: 2.2.19-3ubuntu2.2
+     dev_focal: 2.2.19-3ubuntu2.4
+
+   * helix-cli
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * helix-cli-base
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * helix-p4d
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * helix-p4d-base
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * helix-p4d-base-24.2
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * helix-p4dctl
+     stage_focal: 2024.2-2697822~focal
+     dev_focal: 2024.2-2726408~focal
+
+   * imagemagick
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * imagemagick-6-common
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * imagemagick-6.q16
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * krb5-locales
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * krb5-multidev
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libbinutils
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * libctf0
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * libctf-nobfd0
+     stage_focal: 2.34-6ubuntu1.10
+     dev_focal: 2.34-6ubuntu1.11
+
+   * libfreetype6
+     stage_focal: 2.10.1-2ubuntu0.3
+     dev_focal: 2.10.1-2ubuntu0.4
+
+   * libfreetype6-dev
+     stage_focal: 2.10.1-2ubuntu0.3
+     dev_focal: 2.10.1-2ubuntu0.4
+
+   * libfreetype-dev
+     stage_focal: 2.10.1-2ubuntu0.3
+     dev_focal: 2.10.1-2ubuntu0.4
+
+   * libgssapi-krb5-2
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libgssrpc4
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libk5crypto3
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkadm5clnt-mit11
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkadm5srv-mit11
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkdb5-9
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkrb5-3
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkrb5-dev
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libkrb5support0
+     stage_focal: 1.17-6ubuntu4.8
+     dev_focal: 1.17-6ubuntu4.9
+
+   * libmagickcore-6-arch-config
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickcore-6-headers
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickcore-6.q16-6
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickcore-6.q16-6-extra
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickcore-6.q16-dev
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickwand-6-headers
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickwand-6.q16-6
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickwand-6.q16-dev
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libmagickwand-dev
+     stage_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.10
+     dev_focal: 8:6.9.10.23+dfsg-2.1ubuntu11.11
+
+   * libpython3.8
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-dev
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-minimal
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * libpython3.8-stdlib
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * libruby2.7
+     stage_focal: 2.7.0-5ubuntu1.17
+     dev_focal: 2.7.0-5ubuntu1.18
+
+   * libsoup2.4-1
+     stage_focal: 2.70.0-1ubuntu0.1
+     dev_focal: 2.70.0-1ubuntu0.2
+
+   * libsoup-gnome2.4-1
+     stage_focal: 2.70.0-1ubuntu0.1
+     dev_focal: 2.70.0-1ubuntu0.2
+
+   * libxslt1.1
+     stage_focal: 1.1.34-4ubuntu0.20.04.1
+     dev_focal: 1.1.34-4ubuntu0.20.04.3
+
+   * libxslt1-dev
+     stage_focal: 1.1.34-4ubuntu0.20.04.1
+     dev_focal: 1.1.34-4ubuntu0.20.04.3
+
+   * linux-headers-generic
+     stage_focal: 5.4.0.208.204
+     dev_focal: 5.4.0.214.207
+
+   * linux-libc-dev
+     stage_focal: 5.4.0-208.228
+     dev_focal: 5.4.0-214.234
+
+   * openssh-client
+     stage_focal: 1:8.2p1-4ubuntu0.12
+     dev_focal: 1:8.2p1-4ubuntu0.13
+
+   * openssh-server
+     stage_focal: 1:8.2p1-4ubuntu0.12
+     dev_focal: 1:8.2p1-4ubuntu0.13
+
+   * openssh-sftp-server
+     stage_focal: 1:8.2p1-4ubuntu0.12
+     dev_focal: 1:8.2p1-4ubuntu0.13
+
+   * postgresql-client-common
+     stage_focal: 274.pgdg20.04+1
+     dev_focal: 277.pgdg20.04+1
+
+   * postgresql-common
+     stage_focal: 274.pgdg20.04+1
+     dev_focal: 277.pgdg20.04+1
+
+   * postgresql-common-dev
+     stage_focal: 274.pgdg20.04+1
+     dev_focal: 277.pgdg20.04+1
+
+   * python3.8
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * python3.8-dev
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * python3.8-minimal
+     stage_focal: 3.8.10-0ubuntu1~20.04.15
+     dev_focal: 3.8.10-0ubuntu1~20.04.18
+
+   * python3-jinja2
+     stage_focal: 2.10.1-2ubuntu0.4
+     dev_focal: 2.10.1-2ubuntu0.6
+
+   * rabbitmq-server
+     stage_focal: 4.0.7-1
+     dev_focal: 4.1.0-1
+
+   * redis
+     stage_focal: 6:7.4.2-1rl1~focal1
+     dev_focal: 6:7.4.3-1rl1~focal1
+
+   * redis-server
+     stage_focal: 6:7.4.2-1rl1~focal1
+     dev_focal: 6:7.4.3-1rl1~focal1
+
+   * redis-tools
+     stage_focal: 6:7.4.2-1rl1~focal1
+     dev_focal: 6:7.4.3-1rl1~focal1
+
+   * ruby2.7
+     stage_focal: 2.7.0-5ubuntu1.17
+     dev_focal: 2.7.0-5ubuntu1.18
+
+   * snapd
+     stage_focal: 2.66.1+20.04
+     dev_focal: 2.67.1+20.04
+
+   * sosreport
+     stage_focal: 4.7.2-0ubuntu1~20.04.2
+     dev_focal: 4.8.2-0ubuntu0~20.04.1
+
+   * tzdata
+     stage_focal: 2024b-0ubuntu0.20.04.1
+     dev_focal: 2025b-0ubuntu0.20.04
+
+   * vim
+     stage_focal: 2:8.1.2269-1ubuntu5.31
+     dev_focal: 2:8.1.2269-1ubuntu5.32
+
+   * vim-common
+     stage_focal: 2:8.1.2269-1ubuntu5.31
+     dev_focal: 2:8.1.2269-1ubuntu5.32
+
+   * vim-runtime
+     stage_focal: 2:8.1.2269-1ubuntu5.31
+     dev_focal: 2:8.1.2269-1ubuntu5.32
+
+   * vim-tiny
+     stage_focal: 2:8.1.2269-1ubuntu5.31
+     dev_focal: 2:8.1.2269-1ubuntu5.32
+
+   * xserver-common
+     stage_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal: 2:1.20.13-1ubuntu1~20.04.20
+
+   * xserver-xorg-core
+     stage_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal: 2:1.20.13-1ubuntu1~20.04.20
+
+   * xvfb
+     stage_focal: 2:1.20.13-1ubuntu1~20.04.19
+     dev_focal: 2:1.20.13-1ubuntu1~20.04.20
+
+   * xxd
+     stage_focal: 2:8.1.2269-1ubuntu5.31
+     dev_focal: 2:8.1.2269-1ubuntu5.32
+
+
+4. SUMMARY
+--------------------------------------------------------------
+   Total packages added:    6
+   Total packages removed:  8
+   Total version changes:   117
+   Total differences:       131
+
+5. KERNEL VERSION CHANGES
+--------------------------------------------------------------
+   Kernel packages removed:
+   - linux-headers-5.4.0-208 (version 5.4.0-208.228)
+   - linux-headers-5.4.0-208-generic (version 5.4.0-208.228)
+   - linux-image-5.15.0-1075-gcp (version 5.15.0-1075.84~20.04.1)
+   - linux-image-5.15.0-1077-gcp (version 5.15.0-1077.86~20.04.1)
+   - linux-image-gcp (version 5.15.0.1077.86~20.04.1)
+   - linux-modules-5.15.0-1075-gcp (version 5.15.0-1075.84~20.04.1)
+   - linux-modules-5.15.0-1077-gcp (version 5.15.0-1077.86~20.04.1)
+   - linux-modules-5.4.0-208-generic (version 5.4.0-208.228)
+
+   Kernel packages added:
+   + linux-headers-5.4.0-214 (version 5.4.0-214.234)
+   + linux-headers-5.4.0-214-generic (version 5.4.0-214.234)
+   + linux-image-5.15.0-1081-gcp (version 5.15.0-1081.90~20.04.1)
+   + linux-image-unsigned-5.4.0-214-generic (version 5.4.0-214.234)
+   + linux-modules-5.15.0-1081-gcp (version 5.15.0-1081.90~20.04.1)
+   + linux-modules-5.4.0-214-generic (version 5.4.0-214.234)
