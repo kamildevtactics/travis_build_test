@@ -54,6 +54,7 @@ bzip2 1.0.6-8.1ubuntu0.2
 bzr 2.7.0+bzr6622-10
 ca-certificates 20230311ubuntu0.18.04.1
 ca-certificates-java 20180516ubuntu1~18.04.2
+catatonit 0.1.7-1
 ccache 3.4.1-1
 chrony 3.2-4ubuntu4.5
 cloud-guest-utils 0.30-0ubuntu5
@@ -65,10 +66,13 @@ cmake-data 3.10.2-1ubuntu2.18.04.2
 comerr-dev 2.1-1.44.1-1ubuntu1.4
 command-not-found 18.04.6
 command-not-found-data 18.04.6
+conmon 100:2.1.2~0
 console-setup 1.178ubuntu2.9
 console-setup-linux 1.178ubuntu2.9
 containerd 1.6.12-0ubuntu1~18.04.1
 containerd.io 1.6.21-1
+containernetworking-plugins 100:1.1.1~1
+containers-common 100:1-22
 coreutils 8.28-1ubuntu1
 couch-libmozjs185-1.0 1.8.5-1.0.0+couch-2~bionic
 couchdb 3.3.3-2~bionic
@@ -76,7 +80,9 @@ cpio 2.12+dfsg-6ubuntu0.18.04.4
 cpp 4:7.4.0-1ubuntu2.3
 cpp-7 7.5.0-3ubuntu1~18.04
 crda 3.18-1build1
+criu 3.17.1-1
 cron 3.0pl1-128.1ubuntu1.2
+crun 100:1.2-2
 cryptsetup 2:2.0.2-1ubuntu1.2
 cryptsetup-bin 2:2.0.2-1ubuntu1.2
 curl 7.58.0-2ubuntu3.24
@@ -463,6 +469,7 @@ libgmpxx4ldbl 2:6.1.2+dfsg-2ubuntu0.1
 libgnutls30 3.5.18-1ubuntu1.6
 libgomp1 8.4.0-1ubuntu1~18.04
 libgpg-error0 1.27-6
+libgpgme11 1.10.0-1ubuntu2
 libgpm2 1.20.7-5
 libgraphite2-3 1.3.11-2
 libgraphite2-dev 1.3.11-2
@@ -607,6 +614,7 @@ libncursesw5 6.1-1ubuntu1.18.04.1
 libncursesw5-dev 6.1-1ubuntu1.18.04.1
 libnet-http-perl 6.17-1
 libnet-ssleay-perl 1.84-1ubuntu0.2
+libnet1 1.1.6+dfsg-3.1
 libnetfilter-conntrack3 1.0.6-2
 libnetplan0 0.99-0ubuntu3~18.04.5
 libnettle6 3.4.1-0ubuntu0.18.04.1
@@ -673,6 +681,8 @@ libpopt0 1.16-11
 libpq-dev 15.3-1.pgdg18.04+1
 libpq5 15.3-1.pgdg18.04+1
 libprocps6 2:3.3.12-3ubuntu1.2
+libprotobuf-c1 1.2.1-2
+libprotobuf10 3.0.0-9.1ubuntu1.1
 libproxy1v5 0.4.15-1ubuntu0.2
 libpsl5 0.19.1-5build1
 libpthread-stubs0-dev 0.3-4
@@ -861,6 +871,7 @@ libxtst6 2:1.2.3-1
 libxv1 2:1.0.11-1
 libxxf86dga1 2:1.1.4-1
 libxxf86vm1 1:1.1.4-1
+libyajl2 2.1.0-2build1
 libyaml-0-2 0.1.7-2ubuntu3
 libyaml-dev 0.1.7-2ubuntu3
 libyaml-perl 1.24-1
@@ -966,6 +977,9 @@ pinentry-curses 1.1.0-1
 pkg-config 0.29.1-0ubuntu2
 plymouth 0.9.3-1ubuntu7.18.04.2
 plymouth-theme-ubuntu-text 0.9.3-1ubuntu7.18.04.2
+podman 100:3.4.2-5
+podman-machine-cni 100:0.0.0-1
+podman-plugins 100:1.2.0-1
 policykit-1 0.105-20ubuntu0.18.04.6
 pollinate 4.33-0ubuntu1~18.04.2
 postgresql-10 10.23-1.pgdg18.04+1
@@ -1095,6 +1109,7 @@ python3-pbr 3.1.1-3ubuntu3
 python3-pexpect 4.2.1-1
 python3-pkg-resources 39.0.1-2ubuntu0.1
 python3-problem-report 2.20.9-0ubuntu7.29
+python3-protobuf 3.0.0-9.1ubuntu1.1
 python3-ptyprocess 0.5.2-1
 python3-pyasn1 0.4.2-3
 python3-pyasn1-modules 0.2.1-0.2
