@@ -10,170 +10,94 @@ jobs:
         - COMPARE_WITH=stage_focal
 
 script:
-  - distro=focal
-  - mkdir -p $distro
-  - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
+  - |
+    set -euo pipefail
+    export LC_ALL=C
+
+    THIS_DIST=$(echo "$TARGET_ENV" | cut -d'_' -f2)
+    mkdir -p "$THIS_DIST"
+
+    dpkg-query -W -f='${Package} ${Version}\n' \
+      > "$THIS_DIST/${TARGET_ENV}_installed_packages.txt"
 
 after_success:
-  - git config --global user.name "kamildevtactics"
-  - git config --global user.email "kamil.maludzinski@devtactics.net"
-  - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
-  - cd travis_build_test
-  - mkdir -p $distro
-  - ls -ltr
-  - cp ../$distro/${TARGET_ENV}_installed_packages.txt $distro/${TARGET_ENV}_installed_packages.txt
-  - git add $distro/${TARGET_ENV}_installed_packages.txt
-  - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
-  - git push origin main
   - |
-    # Universal package comparison
-    if [[ ! -z "$COMPARE_WITH" ]]; then
-      echo "Comparing package lists: $TARGET_ENV with $COMPARE_WITH"
-      
-      # Get distribution information
-      THIS_DIST=$(echo $TARGET_ENV | cut -d'_' -f2)
-      COMPARE_DIST=$(echo $COMPARE_WITH | cut -d'_' -f2)
-      
-      if [[ -f "$distro/${COMPARE_WITH}_installed_packages.txt" ]]; then
-        echo "Found $COMPARE_WITH installed package list, generating diff report..."
-        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${COMPARE_WITH}_diff.txt"
-        
-        # Create a fresh report with a header
-        echo "======================================================" > $DIFF_REPORT
-        echo "    PACKAGE COMPARISON REPORT: $TARGET_ENV vs $COMPARE_WITH" >> $DIFF_REPORT
-        
-        # Add warning if comparing different distributions
-        if [[ "$THIS_DIST" != "$COMPARE_DIST" ]]; then
-          echo "    WARNING: Comparing across different Ubuntu versions ($THIS_DIST vs $COMPARE_DIST)" >> $DIFF_REPORT
+    set -euo pipefail
+    export LC_ALL=C
+
+    git config --global user.name  "kamildevtactics"
+    git config --global user.email "kamil.maludzinski@devtactics.net"
+
+    git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
+    cd travis_build_test
+
+    git pull --rebase origin main || git merge --ff-only origin/main
+
+    THIS_DIST=$(echo "$TARGET_ENV" | cut -d'_' -f2)
+    mkdir -p "$THIS_DIST"
+    cp "../${THIS_DIST}/${TARGET_ENV}_installed_packages.txt" "$THIS_DIST/"
+
+    git add "$THIS_DIST/${TARGET_ENV}_installed_packages.txt"
+    git commit -m "Update installed packages ($TARGET_ENV)"
+    git push origin main
+
+    if [[ -n "$COMPARE_WITH" && -f "../${THIS_DIST}/${COMPARE_WITH}_installed_packages.txt" ]]; then
+      echo "Generating diff report: $TARGET_ENV vs $COMPARE_WITH"
+      TMPDIR=$(mktemp -d)
+      cut -d' ' -f1 "${THIS_DIST}/${TARGET_ENV}_installed_packages.txt"  | sort > "$TMPDIR/${TARGET_ENV}_names.txt"
+      cut -d' ' -f1 "${THIS_DIST}/${COMPARE_WITH}_installed_packages.txt" | sort > "$TMPDIR/${COMPARE_WITH}_names.txt"
+
+      comm -23 "$TMPDIR/${COMPARE_WITH}_names.txt" "$TMPDIR/${TARGET_ENV}_names.txt" > "$TMPDIR/added.txt"
+      comm -13 "$TMPDIR/${COMPARE_WITH}_names.txt" "$TMPDIR/${TARGET_ENV}_names.txt" > "$TMPDIR/removed.txt"
+      comm -12 "$TMPDIR/${COMPARE_WITH}_names.txt" "$TMPDIR/${TARGET_ENV}_names.txt" > "$TMPDIR/common.txt"
+
+      REPORT="${THIS_DIST}/${TARGET_ENV}_vs_${COMPARE_WITH}_diff.txt"
+      {
+        echo "====== PACKAGE COMPARISON: $TARGET_ENV vs $COMPARE_WITH ======"
+        echo
+        echo "1) ADDED:"
+        echo "----------"
+        if [[ -s "$TMPDIR/added.txt" ]]; then
+          while read -r pkg; do
+            ver=$(grep -m1 "^$pkg " "${THIS_DIST}/${COMPARE_WITH}_installed_packages.txt" | awk '{print $2}')
+            echo "  + $pkg (version $ver)"
+          done < "$TMPDIR/added.txt"
+        else
+          echo "  (none)"
         fi
-        
-        echo "======================================================" >> $DIFF_REPORT
-        echo "" >> $DIFF_REPORT
-        
-        # File format is simple: package version - no complex parsing logic needed
-        
-        # 1. PACKAGES ADDED (in compare_with but not in target_env)
-        echo "1. PACKAGES ADDED (present in $COMPARE_WITH but missing in $TARGET_ENV)" >> $DIFF_REPORT
-        echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        ADDED_COUNT=0
-        
-        # Get only package names for comparison
-        cut -d' ' -f1 $distro/${TARGET_ENV}_installed_packages.txt | sort > ${TARGET_ENV}_names.txt
-        cut -d' ' -f1 $distro/${COMPARE_WITH}_installed_packages.txt | sort > ${COMPARE_WITH}_names.txt
-        
-        # Find packages in compare_with but not in target_env
-        comm -23 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > added_packages.txt
-        
-        # For each added package, get its version from the compare_with list
-        while read pkg; do
-          # Skip empty lines
-          if [ -z "$pkg" ]; then continue; fi
-          ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
-          echo "   + $pkg - version $ver" >> $DIFF_REPORT
-          ADDED_COUNT=$((ADDED_COUNT+1))
-        done < added_packages.txt
-        
-        if [ $ADDED_COUNT -eq 0 ]; then
-          echo "   None" >> $DIFF_REPORT
+
+        echo
+        echo "2) REMOVED:"
+        echo "------------"
+        if [[ -s "$TMPDIR/removed.txt" ]]; then
+          while read -r pkg; do
+            ver=$(grep -m1 "^$pkg " "${THIS_DIST}/${TARGET_ENV}_installed_packages.txt" | awk '{print $2}')
+            echo "  - $pkg (version $ver)"
+          done < "$TMPDIR/removed.txt"
+        else
+          echo "  (none)"
         fi
-        echo "" >> $DIFF_REPORT
-        
-        # 2. PACKAGES REMOVED (in target_env but not in compare_with)
-        echo "2. PACKAGES REMOVED (present in $TARGET_ENV but missing in $COMPARE_WITH)" >> $DIFF_REPORT
-        echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        REMOVED_COUNT=0
-        
-        # Find packages in target_env but not in compare_with
-        comm -13 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > removed_packages.txt
-        
-        # For each removed package, get its version from the target_env list
-        while read pkg; do
-          # Skip empty lines
-          if [ -z "$pkg" ]; then continue; fi
-          ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
-          echo "   - $pkg - version $ver" >> $DIFF_REPORT
-          REMOVED_COUNT=$((REMOVED_COUNT+1))
-        done < removed_packages.txt
-        
-        if [ $REMOVED_COUNT -eq 0 ]; then
-          echo "   None" >> $DIFF_REPORT
+
+        echo
+        echo "3) VERSION CHANGES:"
+        echo "---------------------"
+        if [[ -s "$TMPDIR/common.txt" ]]; then
+          while read -r pkg; do
+            tv=$(grep -m1 "^$pkg " "${THIS_DIST}/${TARGET_ENV}_installed_packages.txt" | awk '{print $2}')
+            cv=$(grep -m1 "^$pkg " "${THIS_DIST}/${COMPARE_WITH}_installed_packages.txt" | awk '{print $2}')
+            if [[ "$tv" != "$cv" ]]; then
+              echo "  * $pkg: $tv → $cv"
+            fi
+          done < "$TMPDIR/common.txt"
+        else
+          echo "  (none)"
         fi
-        echo "" >> $DIFF_REPORT
-        
-        # 3. VERSION DIFFERENCES
-        echo "3. PACKAGES WITH VERSION CHANGES ($TARGET_ENV vs $COMPARE_WITH)" >> $DIFF_REPORT
-        echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        VERSION_COUNT=0
-        
-        # Find packages that exist in both but have different versions
-        # Get all common packages
-        comm -12 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > common_packages.txt
-        
-        # Check each common package for version differences
-        while read pkg; do
-          # Skip empty lines
-          if [ -z "$pkg" ]; then continue; fi
-          
-          target_ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
-          compare_ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
-          
-          if [ "$target_ver" != "$compare_ver" ]; then
-            echo "   * $pkg" >> $DIFF_REPORT
-            echo "     $TARGET_ENV: $target_ver" >> $DIFF_REPORT
-            echo "     $COMPARE_WITH: $compare_ver" >> $DIFF_REPORT
-            echo "" >> $DIFF_REPORT
-            VERSION_COUNT=$((VERSION_COUNT+1))
-          fi
-        done < common_packages.txt
-        
-        if [ $VERSION_COUNT -eq 0 ]; then
-          echo "   None" >> $DIFF_REPORT
-        fi
-        echo "" >> $DIFF_REPORT
-        
-        # 4. SUMMARY
-        echo "4. SUMMARY" >> $DIFF_REPORT
-        echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        echo "   Total packages added:    $ADDED_COUNT" >> $DIFF_REPORT
-        echo "   Total packages removed:  $REMOVED_COUNT" >> $DIFF_REPORT
-        echo "   Total version changes:   $VERSION_COUNT" >> $DIFF_REPORT
-        echo "   Total differences:       $((ADDED_COUNT+REMOVED_COUNT+VERSION_COUNT))" >> $DIFF_REPORT
-        
-        # Add note if comparing different distributions
-        if [[ "$THIS_DIST" != "$COMPARE_DIST" ]]; then
-          echo "   NOTE: Some differences may be expected due to comparing different Ubuntu versions" >> $DIFF_REPORT
-        fi
-        
-        echo "" >> $DIFF_REPORT
-        
-        # 5. KERNEL VERSION CHANGES
-        echo "5. KERNEL VERSION CHANGES" >> $DIFF_REPORT
-        echo "--------------------------------------------------------------" >> $DIFF_REPORT
-        echo "   Kernel packages removed:" >> $DIFF_REPORT
-        grep -E "^linux-(image|headers|modules)" removed_packages.txt | while read pkg; do
-          ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
-          echo "   - $pkg (version $ver)" >> $DIFF_REPORT
-        done
-        
-        echo "" >> $DIFF_REPORT
-        echo "   Kernel packages added:" >> $DIFF_REPORT
-        grep -E "^linux-(image|headers|modules)" added_packages.txt | while read pkg; do
-          ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
-          echo "   + $pkg (version $ver)" >> $DIFF_REPORT
-        done
-        
-        # Clean up temp files
-        rm -f ${TARGET_ENV}_names.txt ${COMPARE_WITH}_names.txt
-        rm -f added_packages.txt removed_packages.txt common_packages.txt
-        
-        echo "Comparison complete. Saving report to $DIFF_REPORT"
-        cat $DIFF_REPORT
-        git add $DIFF_REPORT
-        git commit -m "Add diff report for $TARGET_ENV vs $COMPARE_WITH"
-        git push origin main
-      else
-        echo "$COMPARE_WITH installed package list not found. Skipping comparison."
-      fi
+      } > "$REPORT"
+
+      rm -rf "$TMPDIR"
+      git add "$REPORT"
+      git commit -m "Add diff report for $TARGET_ENV vs $COMPARE_WITH"
+      git push origin main
     else
-      echo "COMPARE_WITH environment variable not set. Skipping comparison."
+      echo "No comparison available for $COMPARE_WITH; skipping diff."
     fi

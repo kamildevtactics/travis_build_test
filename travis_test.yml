@@ -1,20 +1,20 @@
 jobs:
   include:
-    - dist: noble
+    - dist: focal
       env:
-        - TARGET_ENV=stable_noble
-    - dist: noble
-      group: dev
+        - TARGET_ENV=stage_focal
+        - COMPARE_WITH=dev_focal
+    - dist: focal
       env:
-        - TARGET_ENV=dev_noble
+        - TARGET_ENV=dev_focal
+        - COMPARE_WITH=stage_focal
 
 script:
-  - distro=$(lsb_release -c -s)
+  - distro=focal
   - mkdir -p $distro
-  - apt list --installed > $distro/${TARGET_ENV}_installed_packages.txt
+  - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
 after_success:
-  # Set up Git configuration
   - git config --global user.name "kamildevtactics"
   - git config --global user.email "kamil.maludzinski@devtactics.net"
   - git clone https://kamildevtactics:$GITHUB_TOKEN@github.com/kamildevtactics/travis_build_test.git
@@ -25,73 +25,50 @@ after_success:
   - git add $distro/${TARGET_ENV}_installed_packages.txt
   - git commit -m "Update installed packages from Travis CI ($TARGET_ENV)"
   - git push origin main
-  # The comparison script needs to be in a proper YAML multi-line string format
   - |
-    if [[ "$TARGET_ENV" == *"stable"* ]]; then
-      echo "Comparing stable and dev installed packages..."
-      DEV_ENV="${TARGET_ENV/stable/dev}"
-      echo "Comparing $TARGET_ENV with $DEV_ENV"
-      if [[ -f "$distro/${DEV_ENV}_installed_packages.txt" ]]; then
-        echo "Found $DEV_ENV installed package list, generating diff report..."
-        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${DEV_ENV}_diff.txt"
+    # Universal package comparison
+    if [[ ! -z "$COMPARE_WITH" ]]; then
+      echo "Comparing package lists: $TARGET_ENV with $COMPARE_WITH"
+      
+      # Get distribution information
+      THIS_DIST=$(echo $TARGET_ENV | cut -d'_' -f2)
+      COMPARE_DIST=$(echo $COMPARE_WITH | cut -d'_' -f2)
+      
+      if [[ -f "$distro/${COMPARE_WITH}_installed_packages.txt" ]]; then
+        echo "Found $COMPARE_WITH installed package list, generating diff report..."
+        DIFF_REPORT="${distro}/${TARGET_ENV}_vs_${COMPARE_WITH}_diff.txt"
         
-        # Create a fresh report with a header and timestamp
+        # Create a fresh report with a header
         echo "======================================================" > $DIFF_REPORT
-        echo "    PACKAGE COMPARISON REPORT: $TARGET_ENV vs $DEV_ENV" >> $DIFF_REPORT
-        echo "    Generated on: $(date)" >> $DIFF_REPORT
+        echo "    PACKAGE COMPARISON REPORT: $TARGET_ENV vs $COMPARE_WITH" >> $DIFF_REPORT
+        
+        # Add warning if comparing different distributions
+        if [[ "$THIS_DIST" != "$COMPARE_DIST" ]]; then
+          echo "    WARNING: Comparing across different Ubuntu versions ($THIS_DIST vs $COMPARE_DIST)" >> $DIFF_REPORT
+        fi
+        
         echo "======================================================" >> $DIFF_REPORT
         echo "" >> $DIFF_REPORT
         
-        # Process the package lists - extract actual version numbers
-        # Input format: name/version,repo1,repo2,now [arch]
-        # Extract package name and only version number (without repo info)
-        awk -F'/' '{
-          # Get package name
-          name = $1;
-          
-          # Get version and remove repo info
-          if (match($2, /^([^,]+),/)) {
-            version = substr($2, RSTART, RLENGTH-1);
-          } else {
-            version = $2;
-          }
-          
-          # Print package name and clean version
-          print name, version;
-        }' $distro/${TARGET_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${TARGET_ENV}_clean.txt
+        # File format is simple: package version - no complex parsing logic needed
         
-        awk -F'/' '{
-          # Get package name
-          name = $1;
-          
-          # Get version and remove repo info
-          if (match($2, /^([^,]+),/)) {
-            version = substr($2, RSTART, RLENGTH-1);
-          } else {
-            version = $2;
-          }
-          
-          # Print package name and clean version
-          print name, version;
-        }' $distro/${DEV_ENV}_installed_packages.txt | sed 's/ \[.*\]$//' > ${DEV_ENV}_clean.txt
-        
-        # 1. PACKAGES ADDED (in dev but not in stable)
-        echo "1. PACKAGES ADDED (present in $DEV_ENV but missing in $TARGET_ENV)" >> $DIFF_REPORT
+        # 1. PACKAGES ADDED (in compare_with but not in target_env)
+        echo "1. PACKAGES ADDED (present in $COMPARE_WITH but missing in $TARGET_ENV)" >> $DIFF_REPORT
         echo "--------------------------------------------------------------" >> $DIFF_REPORT
         ADDED_COUNT=0
         
         # Get only package names for comparison
-        cut -d' ' -f1 ${TARGET_ENV}_clean.txt | sort > ${TARGET_ENV}_names.txt
-        cut -d' ' -f1 ${DEV_ENV}_clean.txt | sort > ${DEV_ENV}_names.txt
+        cut -d' ' -f1 $distro/${TARGET_ENV}_installed_packages.txt | sort > ${TARGET_ENV}_names.txt
+        cut -d' ' -f1 $distro/${COMPARE_WITH}_installed_packages.txt | sort > ${COMPARE_WITH}_names.txt
         
-        # Find packages in dev but not in stable
-        comm -23 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > added_packages.txt
+        # Find packages in compare_with but not in target_env
+        comm -23 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > added_packages.txt
         
-        # For each added package, get its version from the dev list
+        # For each added package, get its version from the compare_with list
         while read pkg; do
           # Skip empty lines
           if [ -z "$pkg" ]; then continue; fi
-          ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
           echo "   + $pkg - version $ver" >> $DIFF_REPORT
           ADDED_COUNT=$((ADDED_COUNT+1))
         done < added_packages.txt
@@ -101,19 +78,19 @@ after_success:
         fi
         echo "" >> $DIFF_REPORT
         
-        # 2. PACKAGES REMOVED (in stable but not in dev)
-        echo "2. PACKAGES REMOVED (present in $TARGET_ENV but missing in $DEV_ENV)" >> $DIFF_REPORT
+        # 2. PACKAGES REMOVED (in target_env but not in compare_with)
+        echo "2. PACKAGES REMOVED (present in $TARGET_ENV but missing in $COMPARE_WITH)" >> $DIFF_REPORT
         echo "--------------------------------------------------------------" >> $DIFF_REPORT
         REMOVED_COUNT=0
         
-        # Find packages in stable but not in dev
-        comm -13 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > removed_packages.txt
+        # Find packages in target_env but not in compare_with
+        comm -13 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > removed_packages.txt
         
-        # For each removed package, get its version from the stable list
+        # For each removed package, get its version from the target_env list
         while read pkg; do
           # Skip empty lines
           if [ -z "$pkg" ]; then continue; fi
-          ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
+          ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
           echo "   - $pkg - version $ver" >> $DIFF_REPORT
           REMOVED_COUNT=$((REMOVED_COUNT+1))
         done < removed_packages.txt
@@ -124,26 +101,26 @@ after_success:
         echo "" >> $DIFF_REPORT
         
         # 3. VERSION DIFFERENCES
-        echo "3. PACKAGES WITH VERSION CHANGES ($TARGET_ENV vs $DEV_ENV)" >> $DIFF_REPORT
+        echo "3. PACKAGES WITH VERSION CHANGES ($TARGET_ENV vs $COMPARE_WITH)" >> $DIFF_REPORT
         echo "--------------------------------------------------------------" >> $DIFF_REPORT
         VERSION_COUNT=0
         
         # Find packages that exist in both but have different versions
         # Get all common packages
-        comm -12 ${DEV_ENV}_names.txt ${TARGET_ENV}_names.txt > common_packages.txt
+        comm -12 ${COMPARE_WITH}_names.txt ${TARGET_ENV}_names.txt > common_packages.txt
         
         # Check each common package for version differences
         while read pkg; do
           # Skip empty lines
           if [ -z "$pkg" ]; then continue; fi
           
-          stable_ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
-          dev_ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          target_ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
+          compare_ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
           
-          if [ "$stable_ver" != "$dev_ver" ]; then
+          if [ "$target_ver" != "$compare_ver" ]; then
             echo "   * $pkg" >> $DIFF_REPORT
-            echo "     $TARGET_ENV: $stable_ver" >> $DIFF_REPORT
-            echo "     $DEV_ENV:    $dev_ver" >> $DIFF_REPORT
+            echo "     $TARGET_ENV: $target_ver" >> $DIFF_REPORT
+            echo "     $COMPARE_WITH: $compare_ver" >> $DIFF_REPORT
             echo "" >> $DIFF_REPORT
             VERSION_COUNT=$((VERSION_COUNT+1))
           fi
@@ -161,6 +138,12 @@ after_success:
         echo "   Total packages removed:  $REMOVED_COUNT" >> $DIFF_REPORT
         echo "   Total version changes:   $VERSION_COUNT" >> $DIFF_REPORT
         echo "   Total differences:       $((ADDED_COUNT+REMOVED_COUNT+VERSION_COUNT))" >> $DIFF_REPORT
+        
+        # Add note if comparing different distributions
+        if [[ "$THIS_DIST" != "$COMPARE_DIST" ]]; then
+          echo "   NOTE: Some differences may be expected due to comparing different Ubuntu versions" >> $DIFF_REPORT
+        fi
+        
         echo "" >> $DIFF_REPORT
         
         # 5. KERNEL VERSION CHANGES
@@ -168,28 +151,29 @@ after_success:
         echo "--------------------------------------------------------------" >> $DIFF_REPORT
         echo "   Kernel packages removed:" >> $DIFF_REPORT
         grep -E "^linux-(image|headers|modules)" removed_packages.txt | while read pkg; do
-          ver=$(grep "^$pkg " ${TARGET_ENV}_clean.txt | awk '{print $2}')
+          ver=$(grep "^$pkg " $distro/${TARGET_ENV}_installed_packages.txt | awk '{print $2}')
           echo "   - $pkg (version $ver)" >> $DIFF_REPORT
         done
         
         echo "" >> $DIFF_REPORT
         echo "   Kernel packages added:" >> $DIFF_REPORT
         grep -E "^linux-(image|headers|modules)" added_packages.txt | while read pkg; do
-          ver=$(grep "^$pkg " ${DEV_ENV}_clean.txt | awk '{print $2}')
+          ver=$(grep "^$pkg " $distro/${COMPARE_WITH}_installed_packages.txt | awk '{print $2}')
           echo "   + $pkg (version $ver)" >> $DIFF_REPORT
         done
         
         # Clean up temp files
-        rm -f ${TARGET_ENV}_clean.txt ${DEV_ENV}_clean.txt
-        rm -f ${TARGET_ENV}_names.txt ${DEV_ENV}_names.txt
+        rm -f ${TARGET_ENV}_names.txt ${COMPARE_WITH}_names.txt
         rm -f added_packages.txt removed_packages.txt common_packages.txt
         
         echo "Comparison complete. Saving report to $DIFF_REPORT"
         cat $DIFF_REPORT
         git add $DIFF_REPORT
-        git commit -m "Add diff report for $TARGET_ENV vs $DEV_ENV"
+        git commit -m "Add diff report for $TARGET_ENV vs $COMPARE_WITH"
         git push origin main
       else
-        echo "$DEV_ENV installed package list not found. Skipping comparison."
+        echo "$COMPARE_WITH installed package list not found. Skipping comparison."
       fi
+    else
+      echo "COMPARE_WITH environment variable not set. Skipping comparison."
     fi
