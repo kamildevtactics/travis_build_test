@@ -13,6 +13,7 @@
    + golang-github-containers-image - version 5.16.0-3
    + libgpgme11 - version 1.16.0-1.2ubuntu4.2
    + libnet1 - version 1.1.6+dfsg-3.1build3
+   + libnotify4 - version 0.7.9-3ubuntu5.22.04.1
    + libprotobuf23 - version 3.12.4-1ubuntu7.22.04.1
    + libprotobuf-c1 - version 1.3.3-1ubuntu2.1
    + libyajl2 - version 2.1.0-3ubuntu0.22.04.1
@@ -20,9 +21,12 @@
    + linux-gcp-6.8-tools-6.8.0-1026 - version 6.8.0-1026.28~22.04.1
    + linux-headers-5.15.0-136 - version 5.15.0-136.147
    + linux-headers-5.15.0-136-generic - version 5.15.0-136.147
+   + linux-headers-generic - version 5.15.0.136.134
    + linux-image-5.15.0-136-generic - version 5.15.0-136.147
    + linux-image-6.8.0-1025-gcp - version 6.8.0-1025.27~22.04.1
    + linux-image-6.8.0-1026-gcp - version 6.8.0-1026.28~22.04.1
+   + linux-image-gcp - version 6.8.0-1026.28~22.04.1
+   + linux-image-generic - version 5.15.0.136.134
    + linux-modules-5.15.0-136-generic - version 5.15.0-136.147
    + linux-modules-6.8.0-1025-gcp - version 6.8.0-1025.27~22.04.1
    + linux-modules-6.8.0-1026-gcp - version 6.8.0-1026.28~22.04.1
@@ -36,88 +40,17 @@
 
 2. PACKAGES REMOVED (present in dev_jammy but missing in stage_jammy)
 --------------------------------------------------------------
-   - bubblewrap - version 0.6.1-1ubuntu0.1
    - dictionaries-common - version 1.28.14
-   - glib-networking - version 2.72.0-1
-   - glib-networking-common - version 2.72.0-1
-   - glib-networking-services - version 2.72.0-1
-   - gsettings-desktop-schemas - version 42.0-1ubuntu1
-   - gstreamer1.0-plugins-base - version 1.20.1-1ubuntu0.4
-   - gstreamer1.0-plugins-good - version 1.20.3-0ubuntu1.3
    - hunspell-en-us - version 1:2020.12.07-2
-   - libaa1 - version 1.4p5-50build1
-   - libaspell15 - version 0.60.8-4build1
-   - libasyncns0 - version 0.8-6build2
-   - libavc1394-0 - version 0.5.4-5build2
-   - libcaca0 - version 0.99.beta19-2.2ubuntu4
-   - libcdparanoia0 - version 3.10.2+debian-14build2
-   - libdv4 - version 1.0.0-14build1
-   - libenchant-2-2 - version 2.3.2-1ubuntu2
-   - libevdev2 - version 1.12.1+dfsg-1
-   - libflac8 - version 1.3.3-2ubuntu0.2
-   - libgles2 - version 1.4.0-1
-   - libglu1-mesa - version 9.0.2-1
-   - libgstreamer-gl1.0-0 - version 1.20.1-1ubuntu0.4
-   - libgstreamer-plugins-base1.0-0 - version 1.20.1-1ubuntu0.4
-   - libgstreamer-plugins-good1.0-0 - version 1.20.3-0ubuntu1.3
-   - libgudev-1.0-0 - version 1:237-2build1
-   - libharfbuzz-icu0 - version 2.7.4-1ubuntu3.2
-   - libhunspell-1.7-0 - version 1.7.0-4build1
-   - libhyphen0 - version 2.8.8-7build2
-   - libiec61883-0 - version 1.2.0-4build3
-   - libjack-jackd2-0 - version 1.9.20~dfsg-1
-   - libjavascriptcoregtk-4.0-18 - version 2.48.1-0ubuntu0.22.04.1
-   - libjs-jquery-metadata - version 12-3
-   - libjs-jquery-tablesorter - version 1:2.31.3+dfsg1-3
-   - libmanette-0.2-0 - version 0.2.6-3build1
-   - libmp3lame0 - version 3.100-3build2
-   - libmpg123-0 - version 1.29.3-1ubuntu0.1
-   - libogg0 - version 1.3.5-0ubuntu3
-   - libopengl0 - version 1.4.0-1
-   - libopus0 - version 1.3.1-0.1build2
-   - liborc-0.4-0 - version 1:0.4.32-2ubuntu0.1
-   - libproxy1v5 - version 0.4.17-2
    - libpulse0 - version 1:15.99.1+dfsg1-1ubuntu2.2
-   - libraw1394-11 - version 2.1.2-2build2
-   - libsamplerate0 - version 0.2.2-1build1
-   - libsecret-1-0 - version 0.20.5-2
-   - libsecret-common - version 0.20.5-2
-   - libshout3 - version 2.4.5-1build3
-   - libsndfile1 - version 1.0.31-2ubuntu0.2
-   - libsoup2.4-1 - version 2.74.2-3ubuntu0.2
-   - libsoup2.4-common - version 2.74.2-3ubuntu0.2
-   - libspeex1 - version 1.2~rc1.2-1.1ubuntu3
-   - libtag1v5 - version 1.11.1+dfsg.1-3ubuntu3
-   - libtag1v5-vanilla - version 1.11.1+dfsg.1-3ubuntu3
-   - libtheora0 - version 1.1.1+dfsg.1-15ubuntu4
-   - libtwolame0 - version 0.4.0-2build2
-   - libv4l-0 - version 1.22.1-2build1
-   - libv4lconvert0 - version 1.22.1-2build1
-   - libvisual-0.4-0 - version 0.4.0-17build2
-   - libvorbis0a - version 1.3.7-1build2
-   - libvorbisenc2 - version 1.3.7-1build2
-   - libvpx7 - version 1.11.0-2ubuntu2.3
-   - libwavpack1 - version 5.4.0-1build2
-   - libwebkit2gtk-4.0-37 - version 2.48.1-0ubuntu0.22.04.1
-   - libwoff1 - version 1.0.2-1build4
-   - libwxbase3.0-0v5 - version 3.0.5.1+dfsg-4
-   - libwxgtk3.0-gtk3-0v5 - version 3.0.5.1+dfsg-4
-   - libwxgtk-webview3.0-gtk3-0v5 - version 3.0.5.1+dfsg-4
-   - linux-gcp-6.8-tools-6.8.0-1027 - version 6.8.0-1027.29~22.04.1
    - linux-gcp-6.8-tools-6.8.0-1028 - version 6.8.0-1028.30~22.04.1
-   - linux-headers-5.15.0-138 - version 5.15.0-138.148
-   - linux-headers-5.15.0-138-generic - version 5.15.0-138.148
-   - linux-image-5.15.0-138-generic - version 5.15.0-138.148
-   - linux-image-6.8.0-1027-gcp - version 6.8.0-1027.29~22.04.1
    - linux-image-6.8.0-1028-gcp - version 6.8.0-1028.30~22.04.1
+   - linux-image-unsigned-5.15.0-138-generic - version 5.15.0-138.148
    - linux-modules-5.15.0-138-generic - version 5.15.0-138.148
-   - linux-modules-6.8.0-1027-gcp - version 6.8.0-1027.29~22.04.1
    - linux-modules-6.8.0-1028-gcp - version 6.8.0-1028.30~22.04.1
    - linux-modules-extra-5.15.0-138-generic - version 5.15.0-138.148
-   - linux-tools-6.8.0-1027-gcp - version 6.8.0-1027.29~22.04.1
    - linux-tools-6.8.0-1028-gcp - version 6.8.0-1028.30~22.04.1
    - session-migration - version 0.3.6
-   - xdg-dbus-proxy - version 0.1.3-1
 
 3. PACKAGES WITH VERSION CHANGES (dev_jammy vs stage_jammy)
 --------------------------------------------------------------
@@ -309,21 +242,17 @@
      dev_jammy: 3.0.2-7ubuntu2.10
      stage_jammy: 3.0.2-7ubuntu2.8
 
+   * libxml2
+     dev_jammy: 2.9.13+dfsg-1ubuntu0.7
+     stage_jammy: 2.9.13+dfsg-1ubuntu0.6
+
+   * libxml2-dev
+     dev_jammy: 2.9.13+dfsg-1ubuntu0.7
+     stage_jammy: 2.9.13+dfsg-1ubuntu0.6
+
    * linux-base
      dev_jammy: 4.5ubuntu9+22.04.1
      stage_jammy: 4.5ubuntu9
-
-   * linux-headers-generic
-     dev_jammy: 5.15.0.138.134
-     stage_jammy: 5.15.0.136.134
-
-   * linux-image-gcp
-     dev_jammy: 6.8.0-1028.30~22.04.1
-     stage_jammy: 6.8.0-1026.28~22.04.1
-
-   * linux-image-generic
-     dev_jammy: 5.15.0.138.134
-     stage_jammy: 5.15.0.136.134
 
    * linux-libc-dev
      dev_jammy: 5.15.0-138.148
@@ -456,30 +385,29 @@
 
 4. SUMMARY
 --------------------------------------------------------------
-   Total packages added:    29
-   Total packages removed:  82
-   Total version changes:   83
-   Total differences:       194
+   Total packages added:    33
+   Total packages removed:  11
+   Total version changes:   82
+   Total differences:       126
 
 5. KERNEL VERSION CHANGES
 --------------------------------------------------------------
    Kernel packages removed:
-   - linux-headers-5.15.0-138 (version 5.15.0-138.148)
-   - linux-headers-5.15.0-138-generic (version 5.15.0-138.148)
-   - linux-image-5.15.0-138-generic (version 5.15.0-138.148)
-   - linux-image-6.8.0-1027-gcp (version 6.8.0-1027.29~22.04.1)
    - linux-image-6.8.0-1028-gcp (version 6.8.0-1028.30~22.04.1)
+   - linux-image-unsigned-5.15.0-138-generic (version 5.15.0-138.148)
    - linux-modules-5.15.0-138-generic (version 5.15.0-138.148)
-   - linux-modules-6.8.0-1027-gcp (version 6.8.0-1027.29~22.04.1)
    - linux-modules-6.8.0-1028-gcp (version 6.8.0-1028.30~22.04.1)
    - linux-modules-extra-5.15.0-138-generic (version 5.15.0-138.148)
 
    Kernel packages added:
    + linux-headers-5.15.0-136 (version 5.15.0-136.147)
    + linux-headers-5.15.0-136-generic (version 5.15.0-136.147)
+   + linux-headers-generic (version 5.15.0.136.134)
    + linux-image-5.15.0-136-generic (version 5.15.0-136.147)
    + linux-image-6.8.0-1025-gcp (version 6.8.0-1025.27~22.04.1)
    + linux-image-6.8.0-1026-gcp (version 6.8.0-1026.28~22.04.1)
+   + linux-image-gcp (version 6.8.0-1026.28~22.04.1)
+   + linux-image-generic (version 5.15.0.136.134)
    + linux-modules-5.15.0-136-generic (version 5.15.0-136.147)
    + linux-modules-6.8.0-1025-gcp (version 6.8.0-1025.27~22.04.1)
    + linux-modules-6.8.0-1026-gcp (version 6.8.0-1026.28~22.04.1)
