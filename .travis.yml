@@ -1,17 +1,17 @@
 jobs:
   include:
-    - dist: noble
+    - dist: bionic
       env:
-        - TARGET_ENV=stage_noble
-        - COMPARE_WITH=dev_noble
-    - dist: noble
+        - TARGET_ENV=stage_bionic
+        - COMPARE_WITH=dev_bionic
+    - dist: bionic
       group: dev
       env:
-        - TARGET_ENV=dev_noble
-        - COMPARE_WITH=stage_noble
+        - TARGET_ENV=dev_bionic
+        - COMPARE_WITH=stage_bionic
 
 script:
-  - distro=noble
+  - distro=bionic
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 after_success:
