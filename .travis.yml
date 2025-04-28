@@ -1,17 +1,17 @@
 jobs:
   include:
-    - dist: focal
+    - dist: jammy
       env:
-        - TARGET_ENV=stage_focal
-        - COMPARE_WITH=dev_focal
-    - dist: focal
+        - TARGET_ENV=stage_jammy
+        - COMPARE_WITH=dev_jammy
+    - dist: jammy
       group: dev
       env:
-        - TARGET_ENV=dev_focal
-        - COMPARE_WITH=stage_focal
+        - TARGET_ENV=dev_jammy
+        - COMPARE_WITH=stage_jammy
 
 script:
-  - distro=focal
+  - distro=jammy
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
