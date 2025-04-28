@@ -11,7 +11,7 @@ jobs:
         - COMPARE_WITH=stage_jammy
 
 script:
-  - distro=focal
+  - distro=jammy
   - mkdir -p $distro
   - dpkg-query -W -f='${Package} ${Version}\n' > $distro/${TARGET_ENV}_installed_packages.txt
 
